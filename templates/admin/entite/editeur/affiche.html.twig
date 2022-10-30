@@ -1,0 +1,12 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block title %}{{ editeur.nom }}{% endblock %}
+
+{% block body %}
+    <h1>{{ editeur.nom }}</h1>
+
+    <img src="{{ asset('uploads/' ~ editeur.logo) }}" alt="{{ editeur.nom }}">
+    <br/>
+    <a href="{{ path('index_editeur') }}">Retour</a>
+
+{% endblock %}

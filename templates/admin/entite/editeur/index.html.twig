@@ -1,0 +1,42 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block title %}Liste des éditeurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des éditeurs</h1>
+
+    {% include 'flashes.html.twig' %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Logo</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for editeur in editeurs %}
+            <tr>
+                <td>{{ editeur.id }}</td>
+                <td>{{ editeur.nom }}</td>
+                <td><img class="img-custom" src="{{ asset('uploads/' ~ editeur.logo) }}" alt="{{ editeur.nom }}"></td>
+                <td>
+                    <a href="{{ path('afficher_editeur', {'id': editeur.id}) }}">Afficher</a>
+                    <a href="{{ path('modifier_editeur', {'id': editeur.id}) }}">Modifier</a>
+                    <a href="{{ path('supprimer_editeur', {'id': editeur.id } ) }}" onclick="return confirm('Etes-vous de supprimer cet éditeur ?')">
+                        Supprimer
+                    </a> 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun éditeur présent</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('creer_editeur') }}">Ajouter un éditeur</a>
+{% endblock %}

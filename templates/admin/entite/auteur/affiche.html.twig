@@ -1,0 +1,24 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block title %}Auteur{% endblock %}
+
+{% block body %}
+    <h1>Auteur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ auteur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ auteur.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('index_auteur') }}">back to list</a>
+
+    <a href="{{ path('app_auteur_edit', {'id': auteur.id}) }}">edit</a>
+{% endblock %}

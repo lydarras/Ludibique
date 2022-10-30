@@ -1,0 +1,126 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+
+{% block title %}Jeu de société{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        {% if jeu_societe is defined %}
+            <h3 class="text-center">Modifier un jeu</h3>
+        {% else %}
+            <h3 class="text-center">Insertion de jeu</h3>
+        {% endif %}
+        <div class="row mt-5">
+   
+            <div class="col-md-8 mx-auto">
+                    {% if erreur_joueur is defined %}
+
+                        <div class="alert alert-danger">
+                            {{ erreur_joueur }}
+                        </div>
+
+                    {% endif %}
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    
+                    {% if form_errors(form.nom) is not empty %}
+                        
+                        <div class="alert alert-danger">
+                            {{ form_errors(form.nom) }}
+                            {{ form_errors(form.description) }}
+                            {{ form_errors(form.age_min) }}
+                            {{ form_errors(form.nb_joueur_min) }}
+                            {{ form_errors(form.nb_joueur_max) }}
+                            {{ form_errors(form.duree_estimee) }}
+                             
+                        </div>
+                    {% endif %}
+
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            {{ form_label(form.nom) }}
+                        </div>
+                        <div class="col-sm-10">
+                            {{ form_widget(form.nom) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            {{ form_label(form.image) }}
+                        </div>
+                        <div class="col-sm-10">
+                            {{ form_widget(form.image) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            {{ form_label(form.editeur) }}
+                        </div>
+                        <div class="col-sm-10">
+                            {{ form_widget(form.editeur) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            {{ form_label(form.description) }}
+                        </div>
+                        <div class="col-sm-10">
+                            {{ form_widget(form.description) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            {{ form_label(form.age_min) }}
+                        </div>
+                        <div class="col-sm-10">
+                            {{ form_widget(form.age_min) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            {{ form_label(form.nb_joueur_min) }}
+                        </div>
+                        <div class="col-sm-10">
+                            {{ form_widget(form.nb_joueur_min) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            {{ form_label(form.nb_joueur_max) }}
+                        </div>
+                        <div class="col-sm-10">
+                            {{ form_widget(form.nb_joueur_max) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label">
+                            {{ form_label(form.duree_estimee) }}
+                        </div>
+                        <div class="col-sm-10">
+                            {{ form_widget(form.duree_estimee) }}
+                        </div>
+                    </div>
+
+                    {% if jeu_societe is defined %}
+                        <button type="submit" class="d-block col-2 btn btn-warning my-3" >Modifier</button>
+                    {% else %}
+                        <button type="submit" class="d-block col-2 btn btn-warning my-3" >Ajouter</button>
+                    {% endif %}
+
+                {{ form_end(form) }}                    
+                            
+            </div>
+        </div>
+    </div>
+
+    <a href="{{ path('index_jeu_societe') }}">Retour</a>
+
+{% endblock %}

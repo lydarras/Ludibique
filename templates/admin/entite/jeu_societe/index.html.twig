@@ -1,0 +1,50 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block title %}Liste des jeux de société{% endblock %}
+
+{% block body %}
+    <h1>Liste des jeux de société</h1>
+
+    {% include 'flashes.html.twig' %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Auteur(s)</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jeu_societe in jeux_societe %}
+            <tr>
+                <td>{{ jeu_societe.id }}</td>
+                <td>{{ jeu_societe.nom }}</td>
+                <td>
+                
+                {% for lesAuteurs in jeu_societe.auteurJeu %}
+                    {{ lesAuteurs.nom }}
+                {% endfor %}
+
+                </td>
+                <td><img class="img-custom" src="{{ asset('jeux/' ~ jeu_societe.image) }}" alt="{{ jeu_societe.nom }}"></td>
+                <td>
+                    <a href="{{ path('afficher_jeu', {'id': jeu_societe.id}) }}">Afficher</a>
+                    <a href="{{ path('modifier_jeu', {'id': jeu_societe.id}) }}">Modifier</a>
+                    <a href="{{ path('supprimer_jeu', {'id': jeu_societe.id } ) }}" onclick="return confirm('Etes-vous de supprimer cet éditeur ?')">
+                        Supprimer
+                    </a> 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun jeu présent</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('creer_jeu') }}">Ajouter un jeu</a>
+{% endblock %}

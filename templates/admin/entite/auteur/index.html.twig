@@ -1,0 +1,39 @@
+{% extends 'admin/baseAdmin.html.twig' %}
+
+{% block title %}Liste des auteurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des auteurs</h1>
+
+    {% include 'flashes.html.twig' %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for auteur in auteurs %}
+            <tr>
+                <td>{{ auteur.id }}</td>
+                <td>{{ auteur.nom }}</td>
+                <td>
+                    <a href="{{ path('modifier_auteur', {'id': auteur.id}) }}">Modifier</a>
+                    <a href="{{ path('supprimer_auteur', {'id': auteur.id } ) }}" onclick="return confirm('Etes-vous de supprimer cet auteur ?')">
+                        Supprimer
+                    </a> 
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun auteur présent</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('creer_auteur') }}">Ajouter un auteur</a>
+{% endblock %}

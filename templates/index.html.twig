@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ludibique{% endblock %}
+
+{% block body %}
+    <div class="accueil">
+        <div class="gauche">
+            <div class="contenu bienvenue">
+                <h2>Bienvenue à Ludibique</h2>
+                <div class="kesako">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam libero nisi, suscipit egestas pharetra eget, tristique elementum odio. Sed suscipit mauris non neque posuere cursus. Praesent hendrerit iaculis molestie.
+                </div>
+            </div>
+
+            <div class="contenu seanceAleatoire">
+                <h2>Les 5 séances virtuels générées aléatoirement</h2>
+                <div class="seanceVirtuelRandom">
+                    <div class="uneSeancevirtuelle">
+                        <div class="miniatureJeu"></div>
+                        <p>Nom du jeu</p>
+                        <p>Nom de la séance</p>
+                        <p>Organisateur</p>
+                        <p>Afficher les détails</p>
+                        <p>Participer</p>                          
+                    </div>
+
+                    <div class="uneSeancevirtuelle">
+                        <div class="miniatureJeu"></div>
+                        <p>Nom du jeu</p>
+                        <p>Nom de la séance</p>
+                        <p>Organisateur</p>
+                        <p>Afficher les détails</p>
+                        <p>Participer</p>                          
+                    </div>
+
+                    <div class="uneSeancevirtuelle">
+                        <div class="miniatureJeu"></div>
+                        <p>Nom du jeu</p>
+                        <p>Nom de la séance</p>
+                        <p>Organisateur</p>
+                        <p>Afficher les détails</p>
+                        <p>Participer</p>                          
+                    </div>
+
+                    <div class="uneSeancevirtuelle">
+                        <div class="miniatureJeu"></div>
+                        <p>Nom du jeu</p>
+                        <p>Nom de la séance</p>
+                        <p>Organisateur</p>
+                        <p>Afficher les détails</p>
+                        <p>Participer</p>                          
+                    </div>
+
+                    <div class="uneSeancevirtuelle">
+                        <div class="miniatureJeu"></div>
+                        <p>Nom du jeu</p>
+                        <p>Nom de la séance</p>
+                        <p>Organisateur</p>
+                        <p>Afficher les détails</p>
+                        <p>Participer</p>                          
+                    </div>
+
+                    <button>Afficher toutes les séances virtuelles</button>
+
+                </div>
+
+                
+            </div>
+        </div>
+
+        <div class="droite">
+            <div class="contenu seanceSurPlace">
+                <h2>Les séances sur place</h2>
+                <div class="carte"></div>
+            </div>
+
+            <div class="contenu codePrive">
+                <h4>Si vous avez un code pour participer à une séance privée, écrivez ici :</h4>
+                <form>
+                    <input type="text" id="name" name="name" required minlength="4" maxlength="8" size="10">
+                    <input type="submit" value="Valider">
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

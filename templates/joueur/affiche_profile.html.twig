@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+
+    Email : {{ app.user.email }}
+    Pseudo : {{ app.user.pseudo }}
+
+    <a href="{{ path('modifier_joueur') }}">Modifier mon profil</a>
+
+{% endblock %}

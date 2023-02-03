@@ -1,11 +1,24 @@
 <nav class="menuHeader">
     
-    <img src="LudibiqueLogo.png" alt="Logo Ludibique">
+    <a href="{{ path('accueil') }}">
+        <img src="{{ asset('LudibiqueLogo.png') }}" alt="Logo Ludibique">
+    </a>
 
     <ul>
-        <li><a href="#">Mes participations & séances</a></li>
-        <li><a href="#">Organiser une séance</a></li>
-        <li><a href="#">Mon profil</a></li>
+
+        {% if not app.user %}
+        
+            <li><a href="{{ path('creer_joueur') }}">S'inscrire</a></li>
+            <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+        
+        {% else %}
+
+            <li><a href="{{ path('app_seance_index') }}">Mes participations & séances</a></li>
+            <li><a href="{{ path('app_seance_new') }}">Organiser une séance</a></li>
+            <li><a href="{{ path('affiche_joueur') }}">Mon profil</a></li>
+            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+        
+        {% endif %}
     </ul>
 
 </nav>

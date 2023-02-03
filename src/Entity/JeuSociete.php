@@ -64,10 +64,16 @@ class JeuSociete
      */
     private $auteur_jeu;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Seance::class, mappedBy="jeu")
+     */
+    private $seances;
+
     public function __construct()
     {
         //$this->crees = new ArrayCollection();
         $this->auteur_jeu = new ArrayCollection();
+        $this->seances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,6 +201,36 @@ class JeuSociete
             $this->auteurJeu->removeElement($auteurJeu);
             $auteurJeu->removeCreation($this);
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Seance>
+     */
+    public function getSeances(): Collection
+    {
+        return $this->seances;
+    }
+
+    public function addSeance(Seance $seance): self
+    {
+        if (!$this->seances->contains($seance)) {
+            $this->seances[] = $seance;
+            $seance->setJeu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeance(Seance $seance): self
+    {
+        if ($this->seances->removeElement($seance)) {
+            // set the owning side to null (unless already changed)
+            if ($seance->getJeu() === $this) {
+                $seance->setJeu(null);
+            }
+        }
+
         return $this;
     }
 

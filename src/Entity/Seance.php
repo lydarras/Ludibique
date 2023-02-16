@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SeanceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +50,16 @@ class Seance
      * @ORM\Column(type="time", nullable=true)
      */
     private $heure;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Joueur::class, mappedBy="participation")
+     */
+    private $joueurs;
+
+    public function __construct()
+    {
+        $this->joueurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +134,33 @@ class Seance
     public function setHeure(?\DateTimeInterface $heure): self
     {
         $this->heure = $heure;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Joueur>
+     */
+    public function getJoueurs(): Collection
+    {
+        return $this->joueurs;
+    }
+
+    public function addJoueur(Joueur $joueur): self
+    {
+        if (!$this->joueurs->contains($joueur)) {
+            $this->joueurs[] = $joueur;
+            $joueur->addParticipation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJoueur(Joueur $joueur): self
+    {
+        if ($this->joueurs->removeElement($joueur)) {
+            $joueur->removeParticipation($this);
+        }
 
         return $this;
     }

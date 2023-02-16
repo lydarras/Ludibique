@@ -11,75 +11,37 @@
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam libero nisi, suscipit egestas pharetra eget, tristique elementum odio. Sed suscipit mauris non neque posuere cursus. Praesent hendrerit iaculis molestie.
                 </div>
             </div>
-
-
         </div>
-
+        
         <div class="droite">
             <div class="contenu seanceAleatoire">
-                <h2>Les 5 séances virtuels générées aléatoirement</h2>
+                <h2>Les 5 derniers séances crées</h2>
                     <div class="seanceVirtuelRandom">
-                        <div class="uneSeancevirtuelle">
-                            <div class="miniatureJeu"></div>
-                                <p>Nom du jeu</p>
-                                <p>Nom de la séance</p>
-                                <p>Organisateur</p>
-                                <p>Afficher les détails</p>
-                                <p>Participer</p>                          
-                        </div>
 
+                    {% for seance in seances %}
                         <div class="uneSeancevirtuelle">
                             <div class="miniatureJeu"></div>
-                                <p>Nom du jeu</p>
-                                <p>Nom de la séance</p>
-                                <p>Organisateur</p>
-                                <p>Afficher les détails</p>
-                                <p>Participer</p>                          
+                                <p>{{ seance.jeu.nom }}</p>
+                                <p>{{ seance.nom }}</p>
+                                <p>{{ seance.organisateur.pseudo }}</p>
+                                <p><a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a></p>
+                                {% if app.user %}
+                                    {% if seance in participation %}
+                                        <p><a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a></p>
+                                    {% else %}
+                                        <p><a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a></p> 
+                                    {% endif %}
+                                {% endif %}
+                                        
                         </div>
-
-                        <div class="uneSeancevirtuelle">
-                            <div class="miniatureJeu"></div>
-                            <p>Nom du jeu</p>
-                            <p>Nom de la séance</p>
-                            <p>Organisateur</p>
-                            <p>Afficher les détails</p>
-                            <p>Participer</p>                          
-                        </div>
-
-                        <div class="uneSeancevirtuelle">
-                            <div class="miniatureJeu"></div>
-                            <p>Nom du jeu</p>
-                            <p>Nom de la séance</p>
-                            <p>Organisateur</p>
-                            <p>Afficher les détails</p>
-                            <p>Participer</p>                          
-                        </div>
-
-                        <div class="uneSeancevirtuelle">
-                            <div class="miniatureJeu"></div>
-                            <p>Nom du jeu</p>
-                            <p>Nom de la séance</p>
-                            <p>Organisateur</p>
-                            <p>Afficher les détails</p>
-                            <p>Participer</p>                          
-                        </div>
+                    {% endfor %}
 
                         <button>Afficher toutes les séances virtuelles</button>
 
                     </div>
 
-                
-                    <div class="codePrive">
-                            <h4>Si vous avez un code pour participer à une séance privée, écrivez ici :</h4>
-                        <form>
-                            <input type="text" id="name" name="name" required minlength="4" maxlength="8" size="10">
-                            <input type="submit" value="Valider">
-                        </form>
-                    </div>
-
                 </div>
             </div>
-
 
         </div>
 

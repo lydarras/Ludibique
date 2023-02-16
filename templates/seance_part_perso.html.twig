@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ludibique{% endblock %}
+
+{% block body %}
+    <div class="accueil">
+        <div class="gauche">
+            <div class="contenu bienvenue">
+                <h2>Mes séances</h2>
+                    <div class="seanceVirtuelRandom">
+                        
+                        {% for seance in seances %}
+                            <div class="uneSeancevirtuelle">
+                                <div class="miniatureJeu"></div>
+                                    <p>{{ seance.jeu.nom }}</p>
+                                    <p>{{ seance.nom }}</p>
+                                    <p>{{ seance.organisateur.pseudo }}</p>
+                                    <p><a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a></p>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+            </div>
+        </div>
+        
+
+
+        <div class="droite">
+            <div class="contenu seanceAleatoire">
+                <h2>Mes participations</h2>
+                    <div class="seanceVirtuelRandom">
+                        <div class="uneSeancevirtuelle">
+                        {% for participation in participations %} 
+                            <div class="miniatureJeu"></div>
+                            <p>{{ participation.jeu.nom }}</p>
+                            <p>{{ participation.nom }}</p>
+                            <p><a href="{{ path('supprimerJoueur', {'id': participation.id}) }}">Se retirer</a></p>
+                        {% endfor %}
+                     </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}

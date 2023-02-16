@@ -49,9 +49,15 @@ class Joueur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $seances;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Seance::class, inversedBy="joueurs")
+     */
+    private $participation;
+
     public function __construct()
     {
         $this->seances = new ArrayCollection();
+        $this->participation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,4 +190,29 @@ class Joueur implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Seance>
+     */
+    public function getParticipation(): Collection
+    {
+        return $this->participation;
+    }
+
+    public function addParticipation(Seance $participation): self
+    {
+        if (!$this->participation->contains($participation)) {
+            $this->participation[] = $participation;
+        }
+
+        return $this;
+    }
+
+    public function removeParticipation(Seance $participation): self
+    {
+        $this->participation->removeElement($participation);
+
+        return $this;
+    }
+
 }

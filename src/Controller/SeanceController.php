@@ -103,4 +103,28 @@ class SeanceController extends AbstractController
 
         return $this->redirectToRoute('app_seance_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/participation/{id}", name="ajouterJoueur", methods={"GET"})
+     */
+    public function ajouteJoueur(Seance $seance, SeanceRepository $seanceRepository): Response
+    {
+        //La méthode getUser permet de récupérer des contenus de l'utilisateur connecté
+        $user = $this->getUser();
+        $seance->addJoueur($user);
+        $seanceRepository->add($seance, true);
+        return $this->redirectToRoute('seance_participation_perso', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/retrait/{id}", name="supprimerJoueur", methods={"GET"})
+     */
+    public function supprimerJoueur(Seance $seance, SeanceRepository $seanceRepository): Response
+    {
+        //La méthode getUser permet de récupérer des contenus de l'utilisateur connecté
+        $user = $this->getUser();
+        $seance->removeJoueur($user);
+        $seanceRepository->add($seance, true);
+        return $this->redirectToRoute('seance_participation_perso', [], Response::HTTP_SEE_OTHER);
+    }
 }

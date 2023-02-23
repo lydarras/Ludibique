@@ -54,6 +54,11 @@ class Joueur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $participation;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
     public function __construct()
     {
         $this->seances = new ArrayCollection();
@@ -211,6 +216,18 @@ class Joueur implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeParticipation(Seance $participation): self
     {
         $this->participation->removeElement($participation);
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

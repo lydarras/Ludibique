@@ -5,7 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     uploads_dir: '%kernel.project_dir%/public/uploads'
-    photo_jeux: '%kernel.project_dir%/public/jeux'
+    photo_jeux: '%kernel.project_dir%/public/images/jeux'
+    avatars: '%kernel.project_dir%/public/images/avatars'
     locale: 'fr'
     locale_default: fr_FR
 

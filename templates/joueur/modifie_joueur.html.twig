@@ -4,8 +4,8 @@
 
 {% block body %}
 
-    {{ form(form) }}
-
-    <a href="{{ path('affiche_joueur') }}">Retour dans mon profil</a>
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
 
 {% endblock %}

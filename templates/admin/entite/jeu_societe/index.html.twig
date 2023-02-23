@@ -29,7 +29,7 @@
                 {% endfor %}
 
                 </td>
-                <td><img class="img-custom" src="{{ asset('jeux/' ~ jeu_societe.image) }}" alt="{{ jeu_societe.nom }}"></td>
+                <td><img class="img-custom" src="{{ asset('images/jeux/' ~ jeu_societe.image) }}" alt="{{ jeu_societe.nom }}"></td>
                 <td>
                     <a href="{{ path('afficher_jeu', {'id': jeu_societe.id}) }}">Afficher</a>
                     <a href="{{ path('modifier_jeu', {'id': jeu_societe.id}) }}">Modifier</a>

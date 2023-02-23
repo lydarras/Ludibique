@@ -64,7 +64,7 @@ body{
     flex: 80;
 }
 
-.gauche .seanceAleatoire .seanceVirtuelRandom{
+.gauche .seanceAleatoire .boiteGroupes{
     height: 360px;
     width: 700px;
 }
@@ -80,9 +80,8 @@ body{
 }
 
 /* Les 5 séances virtuelles aléatoires */
-.seanceVirtuelRandom .uneSeancevirtuelle{
+.boiteGroupes .boiteCommun{
     display: flex;
-    justify-content: space-around;
     background-color: #E8CB92;
     max-height: 60px;
     padding: 4px;
@@ -90,19 +89,45 @@ body{
     border-bottom: 0;
 }
 
-.seanceVirtuelRandom .uneSeancevirtuelle:last-of-type{
+.boiteGroupes .elemSeance{
+    width : 20%;
+    margin-top: 16px;
+}
+
+.boiteGroupes .boiteCommun:last-of-type{
     border-bottom: 1px solid;
 }
 
-.seanceVirtuelRandom .uneSeancevirtuelle .miniatureJeu{
+.boiteGroupes .boiteCommun .miniatureJeu{
     height: 48px;
     width: 48px;
-    background-color: #C0FFEE;
+    margin-right: 5%;
 }
 
-.seanceVirtuelRandom button{
+.boiteGroupes .boiteCommun .miniatureJeu img{
+    height: 48px;
+    width: 48px;
+}
+
+.boiteGroupes button{
     margin: 16px;
 }
+
+/* Element de séance */
+.miniatureJeu img{
+    height: 48px;
+    width: 48px;
+}
+
+.elemSeance{
+    width : 20%;
+    margin-top: 16px;
+}
+
+.colonne{
+    width: 20%;
+}
+
 
 /* Partie footer */
 

@@ -6,6 +6,7 @@
 
     <ul>
 
+            <li><a href="{{ path('app_seance_index') }}">Afficher toutes les séances</a></li>
         {% if not app.user %}
         
             <li><a href="{{ path('creer_joueur') }}">S'inscrire</a></li>
@@ -15,7 +16,7 @@
 
             <li><a href="{{ path('seance_participation_perso') }}">Mes participations & séances</a></li>
             <li><a href="{{ path('app_seance_new') }}">Organiser une séance</a></li>
-            <li><a href="{{ path('affiche_joueur') }}">Mon profil</a></li>
+            <li><a href="{{ path('affiche_joueur', {'id': app.user.id}) }}">Mon profil</a></li>
             <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
         
         {% endif %}

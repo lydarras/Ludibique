@@ -3,7 +3,7 @@
 {% block title %}Seance index{% endblock %}
 
 {% block body %}
-    <h1>Seance index</h1>
+    <h1>Toutes les séances</h1>
 
     <table class="table">
         <thead>
@@ -28,18 +28,24 @@
                 <td>{{ seance.date ? seance.date|date('Y-m-d') : '' }}</td>
                 <td>{{ seance.heure ? seance.heure|date('H:i') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_seance_show', {'id': seance.id}) }}">show</a>
-                    <a href="{{ path('app_seance_edit', {'id': seance.id}) }}">edit</a>
+                    <a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher en détails</a>
+                    {% if app.user %}
+                        {% if app.user in seance.joueurs %}
+                            <p><a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a></p>
+                        {% else %}
+                            <p><a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a></p> 
+                        {% endif %}
+                    {% endif %}
                 </td>
+                
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Aucune séance</td>
             </tr>
         {% endfor %}
 
         </tbody>
     </table>
 
-    <a href="{{ path('app_seance_new') }}">Create new</a>
 {% endblock %}

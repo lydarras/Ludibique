@@ -56,6 +56,11 @@ class Seance
      */
     private $joueurs;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $plateforme;
+
     public function __construct()
     {
         $this->joueurs = new ArrayCollection();
@@ -161,6 +166,18 @@ class Seance
         if ($this->joueurs->removeElement($joueur)) {
             $joueur->removeParticipation($this);
         }
+
+        return $this;
+    }
+
+    public function getPlateforme(): ?string
+    {
+        return $this->plateforme;
+    }
+
+    public function setPlateforme(string $plateforme): self
+    {
+        $this->plateforme = $plateforme;
 
         return $this;
     }

@@ -4,9 +4,10 @@
 
 {% block body %}
 
-    Email : {{ app.user.email }}
-    Pseudo : {{ app.user.pseudo }}
+    <img src="{{ asset('images/avatars/' ~ joueur.avatar) }}" alt="{{ joueur.pseudo }}">
+    Email : {{ joueur.email }}
+    Pseudo : {{ joueur.pseudo }}
 
-    <a href="{{ path('modifier_joueur') }}">Modifier mon profil</a>
+    <a href="{{ path('modifier_joueur', {'id': joueur.id}) }}">Modifier mon profil</a>
 
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block body %}
     <h1>{{ jeu_societe.nom }}</h1>
 
-    <img src="{{ asset('jeux/' ~ jeu_societe.image) }}" alt="{{ jeu_societe.nom }}">
+    <img src="{{ asset('images/jeux/' ~ jeu_societe.image) }}" alt="{{ jeu_societe.nom }}">
     <br/>
     <a href="{{ path('index_jeu_societe') }}">Retour</a>
 

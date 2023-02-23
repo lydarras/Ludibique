@@ -7,10 +7,12 @@ use App\Form\JoueurType;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class JoueurController extends AbstractController
@@ -25,15 +27,19 @@ class JoueurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->setRoles(["ROLE_USER"]);
+            $user->setAvatar("unknown.png");
+
             // encode the plain password
-            //$user->setRoles(["ROLE_USER"]);
-            //dd($user);
             $user->setPassword(
             $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+
+
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -48,39 +54,67 @@ class JoueurController extends AbstractController
     }
 
     /**
-     * @Route("/mon-profil", name="affiche_joueur", methods={"GET"})
+     * @Route("/mon-profil/{id}", name="affiche_joueur", methods={"GET"})
      */
-    public function afficheJoueur(EntityManagerInterface $entityManager): Response
+    public function afficheJoueur(Joueur $joueur): Response
     {
 
-        return $this->render("joueur/affiche_profile.html.twig");
+        return $this->render("joueur/affiche_profile.html.twig",[
+            'joueur' => $joueur,
+        ]);
     }
 
     /**
-     * @Route("/modifier-profil", name="modifier_joueur", methods={"GET|POST"})
+     * @Route("/modifier-profil/{id}", name="modifier_joueur", methods={"GET|POST"})
      */
-    public function editerJoueur(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, Request $request): Response
+    public function editerJoueur(Joueur $joueur,EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, Request $request,SluggerInterface $slugger): Response
     {
-        $form = $this->createForm(JoueurType::class)->handleRequest($request);
+        $avatarOriginal = $joueur->getAvatar();
+        $form = $this->createForm(JoueurType::class, $joueur,[
+            'avatar' => $avatarOriginal
+        ])->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            $joueur = $entityManager->getRepository(Joueur::class)->findOneBy(['id' => $this->getUser()]);
+            $file = $form->get('avatar')->getData();
 
-            $joueur->setPassword($passwordHasher->hashPassword(
-                $joueur, $form->get('plainPassword')->getData()
-                )
-            );
+            if($file){
+                $extension = ".".$file->guessExtension();
+                $safeFilename = $slugger->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                $newFilename = $safeFilename . '_' . uniqid() . $extension;
+
+                try {
+
+                    $file->move($this->getParameter('avatars'), $newFilename);
+                    $joueur->setAvatar($newFilename);
+
+                } catch (FileException $exception) {
+                }
+
+            } else {
+                $joueur->setAvatar($avatarOriginal);
+            }
+
+            $mdp = $form->get('plainPassword')->getData();
+
+            if($mdp){
+                $joueur->setPassword($passwordHasher->hashPassword(
+                    $joueur, $form->get('plainPassword')->getData()
+                    )
+                );
+            }
 
             $entityManager->persist($joueur);
             $entityManager->flush();
 
-            $this->addFlash('success', "Votre mot de passe a bien été changé");
-            return $this->redirectToRoute('affiche_joueur');
+            return $this->redirectToRoute('affiche_joueur', array(
+                'id' => $joueur->getId()
+            ));
         }
 
         return $this->render('joueur/modifie_joueur.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'joueur' => $joueur
         ]);
     }
 

@@ -8,7 +8,24 @@
             <div class="contenu bienvenue">
                 <h2>Bienvenue à Ludibique</h2>
                 <div class="kesako">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam libero nisi, suscipit egestas pharetra eget, tristique elementum odio. Sed suscipit mauris non neque posuere cursus. Praesent hendrerit iaculis molestie.
+                    <div class="paragrahe">
+                        Etes-vous un joueur qui s'initie aux jeux de société ? Un joueur régulier ? Ou un joueur expert pour des jeux de longue durée ? Que vous soyez gérant ou membre d'un serveur de jeux ou entre amis, Ludibique est une application web qui permet d'organiser des séances de jeux de société en ligne.
+                    </div>
+
+                    <div class="paragrahe">
+                        Les joueurs jouent dans des plateformes de jeux en ligne tels que :
+                        <ul>
+                            <li>Board Game Arena</li>
+                            <li>Table top Simulator (compte Steam requis)</li>
+                            <li>Tabletopia</li>
+                            <li>Codenames</li>
+                            <li>Skribbl</li>
+                            <li>JLKM</li>
+                            <li>Gartic Phone</li>
+                            <li>Wolfy</li>
+                        </ul> 
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -16,27 +33,27 @@
         <div class="droite">
             <div class="contenu seanceAleatoire">
                 <h2>Les 5 derniers séances crées</h2>
-                    <div class="seanceVirtuelRandom">
+                    <div class="boiteGroupes">
 
                     {% for seance in seances %}
-                        <div class="uneSeancevirtuelle">
-                            <div class="miniatureJeu"></div>
-                                <p>{{ seance.jeu.nom }}</p>
-                                <p>{{ seance.nom }}</p>
-                                <p>{{ seance.organisateur.pseudo }}</p>
-                                <p><a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a></p>
+                        <div class="boiteCommun">
+                            <div class="miniatureJeu"><img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></div>
+                                <div class="elemSeance">{{ seance.jeu.nom }}</div>
+                                <div class="elemSeance">{{ seance.nom }}</div>
+                                <div class="elemSeance">{{ seance.organisateur.pseudo }}</div>
+                                <div class="elemSeance"><a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a></div>
                                 {% if app.user %}
                                     {% if seance in participation %}
-                                        <p><a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a></p>
+                                        <div class="elemSeance"><a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a></div>
                                     {% else %}
-                                        <p><a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a></p> 
+                                        <div class="elemSeance"><a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a></div> 
                                     {% endif %}
                                 {% endif %}
                                         
                         </div>
                     {% endfor %}
 
-                        <button>Afficher toutes les séances virtuelles</button>
+                        <a href="{{ path('app_seance_index') }}">Afficher toutes les séances</a>
 
                     </div>
 

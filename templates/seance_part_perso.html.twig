@@ -7,15 +7,35 @@
         <div class="gauche">
             <div class="contenu bienvenue">
                 <h2>Mes séances</h2>
-                    <div class="seanceVirtuelRandom">
+                    <div class="boiteGroupes">
                         
                         {% for seance in seances %}
-                            <div class="uneSeancevirtuelle">
-                                <div class="miniatureJeu"></div>
-                                    <p>{{ seance.jeu.nom }}</p>
-                                    <p>{{ seance.nom }}</p>
-                                    <p>{{ seance.organisateur.pseudo }}</p>
-                                    <p><a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a></p>
+                            <div class="boiteCommun">
+                                <div class="colonne">
+                                    <div class="miniatureJeu"><img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></div>
+                                    <div>{{ seance.jeu.nom }}</div>
+                                </div>
+                                
+                                <div class="colonne">
+                                    <div>{{ seance.nom }}</div>
+                                    <div>{{ seance.joueurs|length }} participants</div>
+                                </div>
+
+                                <div class="colonne">
+                                    <div>{{ seance.plateforme }}</div>
+                                    <div>{{ seance.date ? seance.date|date('Y-m-d') : '' }} à {{ seance.heure ? seance.heure|date('H:i') : '' }}</div>
+                                </div>
+
+                                <div class="colonne">
+                                    <div><a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a></div>
+                                    <div><a href="{{ path('app_seance_edit', {'id': seance.id}) }}">Modifier</a></div>
+                                </div>
+
+                                <div class="colonne">
+                                    <div>Se retirer</div>
+                                    <div>Annuler</div>
+                                </div>
+
                             </div>
                         {% endfor %}
 
@@ -28,21 +48,21 @@
         <div class="droite">
             <div class="contenu seanceAleatoire">
                 <h2>Mes participations</h2>
-                    <div class="seanceVirtuelRandom">
-                        <div class="uneSeancevirtuelle">
+                    <div class="boiteGroupes">
+                        
                         {% for participation in participations %} 
-                            <div class="miniatureJeu"></div>
-                            <p>{{ participation.jeu.nom }}</p>
-                            <p>{{ participation.nom }}</p>
-                            <p><a href="{{ path('supprimerJoueur', {'id': participation.id}) }}">Se retirer</a></p>
+                            <div class="boiteCommun">
+                                <div class="miniatureJeu"><img src="{{ asset('images/jeux/' ~ participation.jeu.image) }}" alt="{{ participation.jeu.nom }}"></div>
+                                <div class="elemSeance">{{ participation.jeu.nom }}</div>
+                                <div class="elemSeance">{{ participation.nom }}</div>
+                                <div class="elemSeance"><a href="{{ path('supprimerJoueur', {'id': participation.id}) }}">Se retirer</a></div>
+                            </div>
                         {% endfor %}
-                     </div>
+                        
                     </div>
-                </div>
             </div>
-
         </div>
 
-
     </div>
+
 {% endblock %}

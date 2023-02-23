@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <th>Photo</th>
-                <td><img src="{{ asset('jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></td>
+                <td><img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></td>
             </tr>
             <tr>
                 <th>Description</th>
@@ -34,8 +34,24 @@
                 <th>Heure</th>
                 <td>{{ seance.heure ? seance.heure|date('H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Plateforme</th>
+                <td>{{ seance.plateforme }}</td>
+            </tr>
         </tbody>
     </table>
+
+    <p>Les participants</p>
+
+    {% if seance.joueurs is not empty %}
+        {% for joueur in seance.joueurs %}
+            <p>{{ joueur.pseudo }}</p>
+        {% endfor %}
+    {% else %}
+
+    <p>Aucun joueur</p>
+    
+    {% endif %}
 
     <a href="{{ path('app_seance_index') }}">back to list</a>
 

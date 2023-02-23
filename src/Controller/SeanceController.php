@@ -24,14 +24,11 @@ class SeanceController extends AbstractController
     public function index(EntityManagerInterface $entityManager, SeanceRepository $seanceRepository): Response
     {
 
-        $utilisateur = $this->getUser();
-        $id = $utilisateur->getId();
+            $seances = $entityManager->getRepository(Seance::class)->findAll();
+            return $this->render('seance/index.html.twig', [
+                'seances' => $seances,
+            ]);
 
-        $seances = $entityManager->getRepository(Seance::class)->findBy(['organisateur' => $id]);
-
-        return $this->render('seance/index.html.twig', [
-            'seances' => $seances,
-        ]);
     }
 
     /**
@@ -39,27 +36,33 @@ class SeanceController extends AbstractController
      */
     public function new(Request $request, SeanceRepository $seanceRepository): Response
     {
-        $seance = new Seance();
-        $form = $this->createForm(SeanceType::class, $seance);
-        $form->handleRequest($request);
 
         //La méthode getUser permet de récupérer des contenus de l'utilisateur connecté
         $user = $this->getUser();
 
+        if($user){
+            $seance = new Seance();
+            $form = $this->createForm(SeanceType::class, $seance);
+            $form->handleRequest($request);
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+    
+                //L'organisateur attend comme valeur une entité d'un joueur. Donc on utilse $user pour mettre à jour l'organisateur, les données de l'utilisateur connecté
+                $seance->setOrganisateur($user);
+                //dd($form);
+                $seanceRepository->add($seance, true);
+                return $this->redirectToRoute('app_seance_index', [], Response::HTTP_SEE_OTHER);
+            }
+    
+            return $this->renderForm('seance/new.html.twig', [
+                'seance' => $seance,
+                'form' => $form,
+            ]);     
+         }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            //L'organisateur attend comme valeur une entité d'un joueur. Donc on utilse $user pour mettre à jour l'organisateur, les données de l'utilisateur connecté
-            $seance->setOrganisateur($user);
-            //dd($form);
-            $seanceRepository->add($seance, true);
-            return $this->redirectToRoute('app_seance_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('seance/new.html.twig', [
-            'seance' => $seance,
-            'form' => $form,
-        ]);
+         else{
+            return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
+         }
     }
 
     /**

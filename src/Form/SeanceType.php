@@ -6,6 +6,7 @@ use App\Entity\JeuSociete;
 use App\Entity\Seance;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -48,6 +49,15 @@ class SeanceType extends AbstractType
             ])
             ->add('heure', TimeType::class, [
                 'widget' => 'choice',
+            ])
+            ->add('plateforme', ChoiceType::class, [
+                'choices'  => [
+                    'Board Game Arena' => 'Board Game Arena',
+                    'Gamepark' => 'Gamepark',
+                    'Tabletop Simulator' => 'Tabletop Simulator',
+                    'Tabletopia' => 'Tabletopia',
+                    'Autre' => 'Autre',
+                ],
             ])
         ;
     }

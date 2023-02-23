@@ -4,10 +4,18 @@
 
 {% block body %}
 
-    <img src="{{ asset('images/avatars/' ~ joueur.avatar) }}" alt="{{ joueur.pseudo }}">
-    Email : {{ joueur.email }}
-    Pseudo : {{ joueur.pseudo }}
+    <div class="profil">
+        <div class="avatar"><img src="{{ asset('images/avatars/' ~ joueur.avatar) }}" alt="{{ joueur.pseudo }}"></div>
+        <div class="info">
+            <div id="pseudo">{{ joueur.pseudo }}</div>
+            <div id="email">Email : {{ joueur.email }}</div>
+        </div>
 
-    <a href="{{ path('modifier_joueur', {'id': joueur.id}) }}">Modifier mon profil</a>
+    </div>
+
+    <div class="actions">
+        <a href="{{ path('modifier_joueur', {'id': joueur.id}) }}">Modifier mon profil</a>
+        <a href="{{ path('supprimer_joueur', {'id': joueur.id}) }}">Supprimer mon compte</a>
+    </div>
 
 {% endblock %}

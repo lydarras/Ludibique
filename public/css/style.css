@@ -2,9 +2,6 @@ body{
     margin: 0;
     padding: 0;
     background-color: #FCDC74;
-}
-
-#container{
     font-family: "Roboto";
 }
 
@@ -40,94 +37,164 @@ body{
     color:#FFFFFF;
 }
 
-/* Colonne */
+/* Structure du site */
 
-.accueil{
+#contenu{
     display: flex;
+    padding: 8px;
 }
-
-.contenu{
-    padding: 40px;
-}
-
-.gauche, .droite{
-    flex: 50;
-    display: flex;
-    flex-direction: column;
-}
-
-.gauche .bienvenue{
-    flex: 20;
-}
-
-.gauche .seanceAleatoire{
-    flex: 80;
-}
-
-.gauche .seanceAleatoire .boiteGroupes{
-    height: 360px;
-    width: 700px;
-}
-
-.droite .carte{
-    background-color: #454545;
-    width: 480px;
-    height: 480px;
-}
-
-.droite .codePrive{
-    padding-top: 0px;
-}
-
-/* Les 5 séances virtuelles aléatoires */
-.boiteGroupes .boiteCommun{
-    display: flex;
-    background-color: #E8CB92;
-    max-height: 60px;
-    padding: 4px;
-    border: 1px solid;
-    border-bottom: 0;
-}
-
-.boiteGroupes .elemSeance{
-    width : 20%;
-    margin-top: 16px;
-}
-
-.boiteGroupes .boiteCommun:last-of-type{
-    border-bottom: 1px solid;
-}
-
-.boiteGroupes .boiteCommun .miniatureJeu{
-    height: 48px;
-    width: 48px;
-    margin-right: 5%;
-}
-
-.boiteGroupes .boiteCommun .miniatureJeu img{
-    height: 48px;
-    width: 48px;
-}
-
-.boiteGroupes button{
+ 
+#contenu .section{
     margin: 16px;
 }
 
-/* Element de séance */
-.miniatureJeu img{
-    height: 48px;
-    width: 48px;
+#contenu .section:first-of-type{
+    flex: 1;
 }
 
-.elemSeance{
-    width : 20%;
-    margin-top: 16px;
+#contenu .section:last-of-type{
+    flex: 2;
 }
 
-.colonne{
+#contenu .section .titre{
+    font-size: 32px;
+}
+
+/* Page d'accueil - Bienvenue */
+
+#contenu .bienvenue{
+    background: rgba(232,203,146,0.8);
+    border-radius: 20px;
+    border: 4px solid #E0AD68;
+}
+
+#contenu .bienvenue .titreBienvenue{
+    background-color: #E0AD68;
+    color: #FFFFFF;
+    padding: 12px;
+    border-radius: 16px 16px 0px 0px;
+}
+
+#contenu .bienvenue #kesako{
+    padding: 12px;
+}
+
+#contenu .seancesRecentes{
+    margin-bottom: 10px;
+}
+
+#contenu .seancesRecentes #afficheTout a{
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: 4px solid #454545;
+    background-color: #E8CB92;
+    color: #454545;
+    font-weight: bold;
+}
+
+#contenu .seancesRecentes #afficheTout a:hover{
+    background-color: #FFFFFF;
+}
+
+/* Tableau commun pour la gestion des séances & participations */
+
+#contenu .section .tableau{
+    background-color: #E8CB92;
+    border-radius: 20px;
+    margin: 24px 0 24px 0;
+    border: 4px solid #E0AD68;
+}
+
+#contenu .section .tableau .ligne{
+    display: flex;
+    padding: 16px 8px;
+}
+
+#contenu .section .tableau .ligne:first-of-type{
+    background-color: #E0AD68;
+    color: #FFFFFF;
+    border-radius: 16px 16px 0px 0px;
+}
+
+#contenu .section .tableau .ligne .colonne{
     width: 20%;
 }
 
+#contenu .section .tableau .ligne .colonne:first-of-type{
+    width: 64px;
+}
+
+#contenu .section .tableau .ligne .colonne .miniature img{
+    width: 48px;
+    height: 48px;
+}
+
+#contenu .section .tableau .ligne:not(:first-of-type) .colonne:not(:first-of-type){
+    padding-top: 10px;
+}
+
+#contenu .section .tableau .ligne .colonne .actions{
+    display: flex;
+}
+
+#contenu .section .tableau .ligne .colonne .actions .bouton:first-of-type{
+    margin-right: 8px;
+}
+
+#contenu .section .tableau .ligne .colonne .actions .bouton a{
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+#contenu .section .tableau .ligne .colonne .actions .bouton a:hover{
+    background-color: #FFFFFF;
+    color: #454545;
+    border: 3px solid #454545;
+}
+
+#contenu .section .tableau .ligne .colonne .actions .afficher a{
+    color: #454545;
+    background-color: #E0AD68;
+}
+
+#contenu .section .tableau .ligne .colonne .actions .participer a{
+    color: #FFFFFF;
+    background-color: #ACCE55;
+}
+
+#contenu .section .tableau .ligne .colonne .actions .participer a:hover{
+    border: 3px solid #ACCE55;
+    color: #ACCE55;
+}
+
+#contenu .section .tableau .ligne .colonne .actions .retirer a{
+    color: #FFFFFF;
+    background-color: #D13;
+}
+
+#contenu .section .tableau .ligne .colonne .actions .retirer a:hover{
+    border: 3px solid #D13;
+    color: #D13;
+}
+
+/** Mon profil **/
+
+.profil{
+    display: flex;
+}
+
+.profil .avatar{
+    width: 256px;
+    height: 256px;
+}
+
+.profil .info #pseudo{
+    font-size: 32px;
+}
 
 /* Partie footer */
 

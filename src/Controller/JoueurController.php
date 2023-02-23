@@ -118,5 +118,16 @@ class JoueurController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/supprimer_joueur/{id}", name="supprimer_joueur", methods={"GET"})
+     */
+    public function supprimerJeu(Joueur $joueur, EntityManagerInterface $entityManager): Response
+    {
+        $this->entityManager->remove($joueur);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('accueil');
+    }
+
 
 }

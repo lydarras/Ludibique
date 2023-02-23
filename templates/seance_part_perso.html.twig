@@ -12,7 +12,7 @@
                         {% for seance in seances %}
                             <div class="boiteCommun">
                                 <div class="colonne">
-                                    <div class="miniatureJeu"><img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></div>
+                                    <div class="miniature"><img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></div>
                                     <div>{{ seance.jeu.nom }}</div>
                                 </div>
                                 
@@ -52,7 +52,7 @@
                         
                         {% for participation in participations %} 
                             <div class="boiteCommun">
-                                <div class="miniatureJeu"><img src="{{ asset('images/jeux/' ~ participation.jeu.image) }}" alt="{{ participation.jeu.nom }}"></div>
+                                <div class="miniature"><img src="{{ asset('images/jeux/' ~ participation.jeu.image) }}" alt="{{ participation.jeu.nom }}"></div>
                                 <div class="elemSeance">{{ participation.jeu.nom }}</div>
                                 <div class="elemSeance">{{ participation.nom }}</div>
                                 <div class="elemSeance"><a href="{{ path('supprimerJoueur', {'id': participation.id}) }}">Se retirer</a></div>

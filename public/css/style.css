@@ -5,85 +5,127 @@ body{
     font-family: "Roboto";
 }
 
+main{
+    padding-top: 128px;
+}
+
 /* Partie Header */
 
-.menuHeader{
+nav{
+    position: fixed;
+    width: 100%;
     background-color: #E0AD68;
-    padding: 8px 32px;
     display: flex;
     justify-content: space-between;
 }
 
-.menuHeader img{
+nav img{
     width:60px;
+    margin: 16px;
 }
 
-.menuHeader ul{
-    margin: 0;
-    padding: 0;
+nav ul{
     list-style-type: none;
     display: flex;
     align-items: center;
+    margin-right: 16px;
 }
 
-.menuHeader ul li a{
+nav ul li a{
     text-decoration: none;
     font-size: 24px;
-    margin-left: 16px;
     color:#454545;
+    margin: 0 8px;
 }
 
-.menuHeader ul li a:hover{
+nav ul li a:hover{
     color:#FFFFFF;
+}
+
+/* Responsive Header */
+
+@media screen and (max-width: 1280px) {
+
+    nav ul li a{
+        font-size: 20px;
+    }
+
+}
+
+@media screen and (max-width: 1105px) {
+
+    nav ul li a{
+        font-size: 16px;
+    }
+
+
+}
+
+@media screen and (max-width: 880px) {
+
+    nav ul li a{
+        font-size: 13px;
+    }
+
 }
 
 /* Structure du site */
 
 #contenu{
     display: flex;
-    padding: 8px;
-}
- 
-#contenu .section{
-    margin: 16px;
+    flex-direction: column;
 }
 
-#contenu .section:first-of-type{
-    flex: 1;
+#contenu main .section{
+    margin: 8px;
 }
 
-#contenu .section:last-of-type{
-    flex: 2;
-}
-
-#contenu .section .titre{
+#contenu main .section .titre{
     font-size: 32px;
+}
+
+#contenu main{
+    display: flex;
+}
+
+/* Responsive structure du site */
+
+@media screen and (max-width: 1105px) {
+
+    #contenu main{
+        flex-direction: column;
+    }
+
 }
 
 /* Page d'accueil - Bienvenue */
 
-#contenu .bienvenue{
+#contenu main .bienvenue{
     background: rgba(232,203,146,0.8);
     border-radius: 20px;
     border: 4px solid #E0AD68;
 }
 
-#contenu .bienvenue .titreBienvenue{
+#contenu main .bienvenue .titreBienvenue{
     background-color: #E0AD68;
     color: #FFFFFF;
     padding: 12px;
     border-radius: 16px 16px 0px 0px;
 }
 
-#contenu .bienvenue #kesako{
+#contenu main .bienvenue #kesako{
     padding: 12px;
 }
 
-#contenu .seancesRecentes{
-    margin-bottom: 10px;
+#contenu main .bienvenue{
+    flex: 1;
 }
 
-#contenu .seancesRecentes #afficheTout a{
+#contenu main .seancesRecentes{
+    flex: 2;
+}
+
+#contenu main .seancesRecentes #afficheTout a{
     text-decoration: none;
     padding: 8px;
     border-radius: 8px;
@@ -94,106 +136,209 @@ body{
     font-weight: bold;
 }
 
-#contenu .seancesRecentes #afficheTout a:hover{
+#contenu main .seancesRecentes #afficheTout a:hover{
     background-color: #FFFFFF;
 }
 
 /* Tableau commun pour la gestion des séances & participations */
 
-#contenu .section .tableau{
+#contenu main .section .tableau{
     background-color: #E8CB92;
     border-radius: 20px;
-    margin: 24px 0 24px 0;
+    margin: 8px 0 24px 0;
     border: 4px solid #E0AD68;
 }
 
-#contenu .section .tableau .ligne{
+#contenu main .section .tableau .ligne{
     display: flex;
     padding: 16px 8px;
+
 }
 
-#contenu .section .tableau .ligne:first-of-type{
+#contenu main .section .tableau .ligne:first-of-type{
     background-color: #E0AD68;
     color: #FFFFFF;
     border-radius: 16px 16px 0px 0px;
 }
 
-#contenu .section .tableau .ligne .colonne{
-    width: 20%;
+#contenu main .section .tableau .ligne .colonne{
+    width: 15%;
 }
 
-#contenu .section .tableau .ligne .colonne:first-of-type{
-    width: 64px;
+#contenu main .section .tableau .ligne .colonne:first-of-type{
+    width: 10%;
 }
 
-#contenu .section .tableau .ligne .colonne .miniature img{
+#contenu main .section .tableau .ligne .colonne:last-of-type{
+    width: 31%;
+}
+
+#contenu main .section .tableau .ligne .colonne .miniature img{
     width: 48px;
     height: 48px;
 }
 
-#contenu .section .tableau .ligne:not(:first-of-type) .colonne:not(:first-of-type){
+#contenu main .section .tableau .ligne:not(:first-of-type) .colonne:not(:first-of-type){
     padding-top: 10px;
 }
 
-#contenu .section .tableau .ligne .colonne .actions{
+#contenu main .section .tableau .ligne .colonne .actions{
     display: flex;
 }
 
-#contenu .section .tableau .ligne .colonne .actions .bouton:first-of-type{
+#contenu main .section .tableau .ligne .colonne .actions .bouton{
     margin-right: 8px;
 }
 
-#contenu .section .tableau .ligne .colonne .actions .bouton a{
+#contenu main .section .tableau .ligne .colonne .actions .bouton a{
     text-decoration: none;
     padding: 6px;
     border-radius: 8px;
     font-size: 14px;
 }
 
-#contenu .section .tableau .ligne .colonne .actions .bouton a:hover{
+#contenu main .section .tableau .ligne .colonne .actions .bouton a:hover{
     background-color: #FFFFFF;
     color: #454545;
     border: 3px solid #454545;
 }
 
-#contenu .section .tableau .ligne .colonne .actions .afficher a{
+#contenu main .section .tableau .ligne .colonne .actions .afficher a{
     color: #454545;
     background-color: #E0AD68;
+    border: 3px solid #454545;
 }
 
-#contenu .section .tableau .ligne .colonne .actions .participer a{
+#contenu main .section .tableau .ligne .colonne .actions .participer a{
     color: #FFFFFF;
     background-color: #ACCE55;
-}
-
-#contenu .section .tableau .ligne .colonne .actions .participer a:hover{
     border: 3px solid #ACCE55;
-    color: #ACCE55;
 }
 
-#contenu .section .tableau .ligne .colonne .actions .retirer a{
+#contenu main .section .tableau .ligne .colonne .actions .participer a:hover{
+    color: #ACCE55;
+    border: 3px solid #ACCE55;
+}
+
+#contenu main .section .tableau .ligne .colonne .actions .retirer a{
     color: #FFFFFF;
     background-color: #D13;
+    border: 3px solid #D13;
 }
 
-#contenu .section .tableau .ligne .colonne .actions .retirer a:hover{
+#contenu main .section .tableau .ligne .colonne .actions .retirer a:hover{
     border: 3px solid #D13;
     color: #D13;
 }
 
-/** Mon profil **/
-
-.profil{
-    display: flex;
+/* Mes séances & participations */
+#contenu main .mes-seances{
+    flex: 2;
 }
 
-.profil .avatar{
+#contenu main .mes-seances .tableau .ligne .colonne{
+    width: 20%;
+}
+
+#contenu main .mes-participations{
+    flex: 1;
+}
+
+#contenu main .mes-participations .tableau .ligne .colonne{
+    width: 30%;
+}
+
+/* Formulaire */
+
+#contenu main .formulaire{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+#contenu main .formulaire .titre{
+    text-align: center;
+}
+
+#contenu main .formulaire form{
+    display: flex;
+    flex-direction: column;
+}
+
+#contenu main .formulaire form .saisie{
+    display: flex;
+    justify-content: center;
+}
+
+#contenu main .formulaire form .saisie label{
+    flex: 1;
+    display: flex;
+    justify-content: end;
+    margin-right: 1%;
+    padding-right: 100px;
+    margin-top: 8px;
+}
+
+#contenu main .formulaire form .saisie input{
+    flex: 2;
+    padding: 0.5em;
+    margin-bottom: 16px;
+}
+
+#contenu main .formulaire form .saisie button{
+    padding: 0.5em;
+}
+
+/** Mon profil **/
+
+#contenu main .profil .mon-compte{
+    display: flex;
+    max-height: 200px;
+}
+
+#contenu main .profil .mon-compte .avatar{
     width: 256px;
     height: 256px;
 }
 
-.profil .info #pseudo{
+#contenu main .profil .mon-compte .info #pseudo{
     font-size: 32px;
+}
+
+#contenu main .profil .actions .bouton{
+    margin: 24px 0;
+}
+
+#contenu main .profil .actions .bouton a{
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 8px;
+    font-size: 14px;
+
+}
+
+#contenu main .section .actions .bouton a:hover{
+    background-color: #FFFFFF;
+}
+
+#contenu main .section .actions .modifier a{
+    color: #454545;
+    background-color: #E0AD68;
+    border: 3px solid #454545;
+}
+
+#contenu main .section .actions .retirer a{
+    color: #FFFFFF;
+    background-color: #D13;
+    border: 3px solid #D13;
+}
+
+#contenu main .section .actions .retirer a:hover{
+    border: 3px solid #D13;
+    color: #D13;
 }
 
 /* Partie footer */
@@ -201,28 +346,41 @@ body{
 footer{
     position: absolute;
     bottom: 0;
+    min-height: 0;
     width: 100%;
     background-color: #E0AD68;
-    display: flex;
-    justify-content: end;
-    height: 102px;
+    padding: 16px 0;
 }
 
 footer ul{
-    margin: 0;
-    padding: 0;
     list-style-type: none;
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
+}
+
+footer ul li:last-of-type{
+    margin: 0 60px;
 }
 
 footer ul li a{
     text-decoration: none;
     font-size: 20px;
-    margin:0px 32px;
+    /*margin:0px 32px;*/
     color:#454545;
 }
 
 footer ul li a:hover{
     color:#FFFFFF;
 }
+
+/* Responsive structure du site */
+
+@media screen and (max-width: 1105px) {
+
+    footer{
+
+        bottom: -350px;
+    }
+
+}
+

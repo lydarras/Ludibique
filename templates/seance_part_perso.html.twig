@@ -3,14 +3,19 @@
 {% block title %}Ludibique{% endblock %}
 
 {% block body %}
-    <div class="accueil">
-        <div class="gauche">
-            <div class="contenu bienvenue">
-                <h2>Mes séances</h2>
-                    <div class="boiteGroupes">
+            <div class="section mes-seances">
+                <div class="titre">Mes séances</div>
+                    <div class="tableau">
                         
+                        <div class="ligne">
+                            <div class="colonne">Jeu</div>
+                            <div class="colonne">Séance</div>
+                            <div class="colonne">Infos</div>
+                            <div class="colonne">Participation ?</div>
+                            <div class="colonne">Actions</div>
+                        </div>
                         {% for seance in seances %}
-                            <div class="boiteCommun">
+                            <div class="ligne">
                                 <div class="colonne">
                                     <div class="miniature"><img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></div>
                                     <div>{{ seance.jeu.nom }}</div>
@@ -27,13 +32,32 @@
                                 </div>
 
                                 <div class="colonne">
-                                    <div><a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a></div>
-                                    <div><a href="{{ path('app_seance_edit', {'id': seance.id}) }}">Modifier</a></div>
+                                    <div class="actions">
+                                        {% if app.user in seance.joueurs %}
+                                            <div class="bouton retirer">
+                                                <a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a>                                                
+                                            </div>
+                                        {% else %}
+                                            <div class="bouton participer">
+                                                <a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a>
+                                            </div>
+                                        {% endif %}                                   
+                                    </div>
+
                                 </div>
 
                                 <div class="colonne">
-                                    <div>Se retirer</div>
-                                    <div>Annuler</div>
+                                    <div class="actions">
+                                        <div class="bouton afficher">
+                                            <a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a>
+                                        </div>
+                                        <div class="bouton afficher">
+                                            <div><a href="{{ path('app_seance_edit', {'id': seance.id}) }}">Modifier</a></div>                                        
+                                        </div>
+                                        <div class="bouton retirer">
+                                            <a href="{{ path('app_seance_delete', {'id': seance.id}) }}">Annuler</a>
+                                        </div>                                   
+                                    </div>
                                 </div>
 
                             </div>
@@ -41,28 +65,38 @@
 
                     </div>
             </div>
-        </div>
         
-
-
-        <div class="droite">
-            <div class="contenu seanceAleatoire">
-                <h2>Mes participations</h2>
-                    <div class="boiteGroupes">
+            <div class="section mes-participations">
+                <div class="titre">Mes participations</div>
+                    <div class="tableau">
                         
+                        <div class="ligne">
+                            <div class="colonne">#</div>
+                            <div class="colonne">Jeu</div>
+                            <div class="colonne">Séance</div>
+                            <div class="colonne">Participation</div>
+                        </div>
+
                         {% for participation in participations %} 
-                            <div class="boiteCommun">
-                                <div class="miniature"><img src="{{ asset('images/jeux/' ~ participation.jeu.image) }}" alt="{{ participation.jeu.nom }}"></div>
-                                <div class="elemSeance">{{ participation.jeu.nom }}</div>
-                                <div class="elemSeance">{{ participation.nom }}</div>
-                                <div class="elemSeance"><a href="{{ path('supprimerJoueur', {'id': participation.id}) }}">Se retirer</a></div>
+                            <div class="ligne">
+                                <div class="colonne">
+                                    <div class="miniature"><img src="{{ asset('images/jeux/' ~ participation.jeu.image) }}" alt="{{ participation.jeu.nom }}"></div>
+                                </div>
+                                
+                                <div class="colonne">{{ participation.jeu.nom }}</div>
+                                <div class="colonne">{{ participation.nom }}</div>
+                                <div class="colonne">
+                                    <div class="actions">
+                                        <div class="bouton retirer">
+                                            <a href="{{ path('supprimerJoueur', {'id': participation.id}) }}">Se retirer</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         {% endfor %}
                         
                     </div>
             </div>
-        </div>
 
-    </div>
 
 {% endblock %}

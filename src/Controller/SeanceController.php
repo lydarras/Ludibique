@@ -96,7 +96,7 @@ class SeanceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_seance_delete", methods={"POST"})
+     * @Route("/suppresionSeance/{id}", name="app_seance_delete", methods={"GET", "POST"})
      */
     public function delete(Request $request, Seance $seance, SeanceRepository $seanceRepository): Response
     {

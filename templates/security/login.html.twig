@@ -3,42 +3,35 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="section formulaire connexion">
+    <div class="section pageFormulaire">
         <div class="titre">Connexion</div>
-        <form method="post">
-    {#
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-    #}
+            <form method="post">
 
-            <div class="saisie">
-                <label for="inputEmail">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>       
-            </div>
+                {% if error %}
+                    <div class="message erreur">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-            <div class="saisie">
-                <label for="inputPassword">Password</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-            </div>
+                <div class="saisie">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>       
+                </div>
 
-            <div class="saisie">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            <div>
+                <div class="saisie">
+                    <label for="inputPassword">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                </div>
 
+                <div class="saisie">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div>
 
-            <div class="saisie">
-                <button class="btn btn-lg btn-primary" type="submit">Connexion</button>
-            </div>
+                <div class="saisie">
+                    <button class="btn btn-lg btn-primary" type="submit">Connexion</button>
+                </div>
 
-        </form>
-
+            </form>
+        
     </div>
 
 {% endblock %}

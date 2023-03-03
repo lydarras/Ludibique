@@ -6,6 +6,7 @@ use App\Entity\Joueur;
 use App\Entity\Seance;
 use App\Form\SeanceType;
 use App\Repository\SeanceRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +22,16 @@ class SeanceController extends AbstractController
     /**
      * @Route("/", name="app_seance_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager, SeanceRepository $seanceRepository): Response
+    public function index(EntityManagerInterface $entityManager, Request $request,SeanceRepository $seanceRepository, PaginatorInterface $paginator): Response
     {
 
-            $seances = $entityManager->getRepository(Seance::class)->findAll();
+            //La variable $données récupère toutes les séances tandis que $séances permet de paginer toutes les séances
+            //1 pour page 1 et 5 sur le nombre limite de séances par page
+            $donnees = $entityManager->getRepository(Seance::class)->findAll();
+            $seances = $paginator->paginate(
+                $donnees,
+                $request->query->getInt('page', 1),5
+            );
             return $this->render('seance/index.html.twig', [
                 'seances' => $seances,
             ]);
@@ -49,13 +56,14 @@ class SeanceController extends AbstractController
     
                 //L'organisateur attend comme valeur une entité d'un joueur. Donc on utilse $user pour mettre à jour l'organisateur, les données de l'utilisateur connecté
                 $seance->setOrganisateur($user);
-                //dd($form);
                 $seanceRepository->add($seance, true);
-                return $this->redirectToRoute('app_seance_index', [], Response::HTTP_SEE_OTHER);
-            }
     
-            return $this->renderForm('seance/new.html.twig', [
-                'seance' => $seance,
+                $this->addFlash('success',"La séance a été créée");
+
+                return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
+            }
+            
+            return $this->renderForm('seance/_form.html.twig', [
                 'form' => $form,
             ]);     
          }
@@ -86,10 +94,12 @@ class SeanceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $seanceRepository->add($seance, true);
 
-            return $this->redirectToRoute('app_seance_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success',"Séance mise à jour !");
+
+            return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('seance/edit.html.twig', [
+        return $this->renderForm('seance/_form.html.twig', [
             'seance' => $seance,
             'form' => $form,
         ]);

@@ -3,59 +3,55 @@
 {% block title %}Seance{% endblock %}
 
 {% block body %}
-    <h1>Seance</h1>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ seance.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ seance.nom }}</td>
-            </tr>
-            <tr>
-                <th>Jeu</th>
-                <td>{{ seance.jeu.nom }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td><img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ seance.description }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ seance.date ? seance.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Heure</th>
-                <td>{{ seance.heure ? seance.heure|date('H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Plateforme</th>
-                <td>{{ seance.plateforme }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <p>Les participants</p>
+    <div class="lignePage">
 
-    {% if seance.joueurs is not empty %}
-        {% for joueur in seance.joueurs %}
-            <p>{{ joueur.pseudo }}</p>
-        {% endfor %}
-    {% else %}
+        <div class="colonnePage profil">
 
-    <p>Aucun joueur</p>
+            <div class="infoIndividuel">
+                <div class="photo"><img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></div>
+                <div class="info">
+                    <div id="titreInfo">{{ seance.nom }}</div>
+                    <div class="elemInfo">{{ seance.jeu.nom }}</div>
+                    <div class="elemInfo">{{ seance.date ? seance.date|date('Y-m-d') : '' }} à {{ seance.heure ? seance.heure|date('H:i:s') : '' }} sur {{ seance.plateforme }}</div>
+                
+                    <div class="actions">
+                        <div class="bouton modifier">
+                            <a href="{{ path('app_seance_edit', {'id': seance.id}) }}">Modifier la séance</a>
+                        </div>
+            
+                        <div class="bouton retirer">
+                            <a href="{{ path('app_seance_delete', {'id': seance.id}) }}">Supprimer la séance</a>
+                        </div>
+                    </div>
+                
+                </div>
+
+            </div>
+
+            <div class="autreInfoSeance">
+                <div class="descriptionSeance">
+                    {{ seance.description }}
+                </div>
+                <div class="lesParticipants">
+                    <div id="titreParticipant">Les participants</div>
+                    {% if seance.joueurs is not empty %}
+                        {% for joueur in seance.joueurs %}
+                            <div class="participant">
+                                <img src="{{ asset('images/avatars/' ~ joueur.avatar) }}" alt="{{ joueur.pseudo }}">
+                                <span>{{ joueur.pseudo }}</span>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="participant">
+                            Aucun joueur
+                        </div>
     
-    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
 
-    <a href="{{ path('app_seance_index') }}">back to list</a>
+        </div>
+    </div>
 
-    <a href="{{ path('app_seance_edit', {'id': seance.id}) }}">edit</a>
-
-    {{ include('seance/_delete_form.html.twig') }}
 {% endblock %}

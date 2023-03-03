@@ -3,49 +3,77 @@
 {% block title %}Seance index{% endblock %}
 
 {% block body %}
-    <h1>Toutes les séances</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Organisateur</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Heure</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="lignePage">
+    
+        <div class="colonnePage toutes-les-seances">
+            <div class="titre">Toutes les séances</div>
+            
+            {# pagination #}
+            <div class="page">
+                {{ knp_pagination_render(seances) }}
+            </div>
 
-        {% for seance in seances %}
-            <tr>
-                <td>{{ seance.id }}</td>
-                <td>{{ seance.organisateur.pseudo }}</td>
-                <td>{{ seance.nom }}</td>
-                <td>{{ seance.description }}</td>
-                <td>{{ seance.date ? seance.date|date('Y-m-d') : '' }}</td>
-                <td>{{ seance.heure ? seance.heure|date('H:i') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher en détails</a>
-                    {% if app.user %}
-                        {% if app.user in seance.joueurs %}
-                            <p><a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a></p>
-                        {% else %}
-                            <p><a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a></p> 
-                        {% endif %}
-                    {% endif %}
-                </td>
-                
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">Aucune séance</td>
-            </tr>
-        {% endfor %}
+            <div class="tableau">
+                        
+                <div class="ligne">
+                    <div class="colonne">#</div>
+                    <div class="colonne">Jeu</div>
+                    <div class="colonne">Date et heure</div>
+                    <div class="colonne">Description</div>
+                    <div class="colonne">Participation ?</div>
+                </div>
+                        
+                {% for seance in seances %}
+                    <div class="ligne">
+                        <div class="colonne">
+                            <div class="miniature"><img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}"></div>
+                                <div>{{ seance.jeu.nom }}</div>
+                            </div>
+                                
+                                <div class="colonne">
+                                    <div>{{ seance.nom }}</div>
+                                    <div>{{ seance.organisateur.pseudo }}</div>
+                                    <div>{{ seance.joueurs|length }} participants</div>
+                                </div>
 
-        </tbody>
-    </table>
+                                <div class="colonne">
+                                    <div>{{ seance.date ? seance.date|date('Y-m-d') : '' }}</div>
+                                    <div>{{ seance.heure ? seance.heure|date('H:i') : '' }}</div>
+                                    <div>{{ seance.plateforme }}</div>                                
+                                </div>
+
+                                <div class="colonne">
+                                    <div>{{ seance.description }}</div>
+                                </div>
+
+                                <div class="colonne">
+                                    <div class="actions">
+                                            <div class="bouton afficher">
+                                                <a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a>
+                                            </div>
+                                        {% if app.user in seance.joueurs %}
+                                            <div class="bouton retirer">
+                                                <a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a>                                                
+                                            </div>
+                                        {% else %}
+                                            <div class="bouton participer">
+                                                <a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a>
+                                            </div>
+                                        {% endif %}                                   
+                                    </div>
+
+                                </div>
+
+
+
+                    </div>
+                {% endfor %}
+
+            </div>
+            
+        </div>
+
+    </div>
 
 {% endblock %}

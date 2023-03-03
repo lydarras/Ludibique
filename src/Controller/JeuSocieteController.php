@@ -147,7 +147,6 @@ class JeuSocieteController extends AbstractController
                 $this->entityManager->persist($editeur);
                 $this->entityManager->flush();
                 $this->addFlash('success',"Le jeu a été édité");
-                //dd($editeur);
                 return $this->redirectToRoute('index_jeu_societe');
             }
             else{

@@ -3,87 +3,100 @@
 {% block title %}Ludibique{% endblock %}
 
 {% block body %}
-        <div class="section bienvenue">
-                <div class="titre titreBienvenue">Bienvenue à Ludibique</div>
-                <div id="kesako">
-                    <div class="paragrahe">
-                        Etes-vous un joueur qui s'initie aux jeux de société ? Un joueur régulier ? Ou un joueur expert pour des jeux de longue durée ?
-                        Que vous soyez gérant ou membre d'un serveur de jeux ou entre amis, Ludibique est une application web qui permet d'organiser des séances de jeux de société en ligne.
-                    </div>
 
-                    <div class="paragrahe">
-                        Les joueurs jouent dans des plateformes de jeux en ligne tels que :
-                        <ul>
-                            <li>Board Game Arena</li>
-                            <li>Table top Simulator (compte Steam requis)</li>
-                            <li>Tabletopia</li>
-                            <li>Codenames</li>
-                            <li>Skribbl</li>
-                            <li>JLKM</li>
-                            <li>Gartic Phone</li>
-                            <li>Wolfy</li>
-                        </ul> 
-                    </div>
+        {% for label, messages in app.flashes %}
+            {% if label == 'success' %}
+                <div class="lignePage">
+                    <div class="succes">{{ messages.0 }}</div>
                 </div>
-        </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="lignePage">
         
-        <div class="section seancesRecentes">
-            <div class="titre">Les 5 derniers séances crées</div>
+            <div class="colonnePage bienvenue">
 
-                <div class="tableau">
-                    <div class="ligne">
-                        <div class="colonne">#</div>
-                        <div class="colonne">Jeu</div>
-                        <div class="colonne">Séance</div>
-                        <div class="colonne">Organisateur</div>
-                        <div class="colonne">Plateforme</div>
-                        <div class="colonne">Actions</div>
-                    </div>
-
-                    {% for seance in seances %}
+                    <div class="titre titreBienvenue">Bienvenue à Ludibique</div>
                     
-                        <div class="ligne">
-                            <div class="colonne">
-                                <div class="miniature">
-                                    <img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}">
-                                </div>
-                            </div>
-                                <div class="colonne">{{ seance.jeu.nom }}</div>
-                                <div class="colonne">{{ seance.nom }}</div>
-                                <div class="colonne">{{ seance.organisateur.pseudo }}</div>
-                                <div class="colonne">{{ seance.plateforme }}</div>
-                                <div class="colonne">
-                                    <div class="actions">
-                                        <div class="bouton afficher">
-                                            <a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a>                                    
-                                        </div>
-                                        {% if app.user %}
-                                            {% if seance in participation %}
-                                                <div class="bouton retirer">
-                                                    <a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a>                                                
-                                                </div>
-
-                                            {% else %}
-                                                <div class="bouton participer">
-                                                    <a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a>
-                                                </div>
-                                            {% endif %}
-                                        {% endif %}                         
-                                    </div>
-
-
-                                </div>
-
-                                        
+                    <div id="kesako">
+                        <div class="paragrahe">
+                            Etes-vous un joueur qui s'initie aux jeux de société ? Un joueur régulier ? Ou un joueur expert pour des jeux de longue durée ?
+                            Que vous soyez gérant ou membre d'un serveur de jeux ou entre amis, Ludibique est une application web qui permet d'organiser des séances de jeux de société en ligne.
                         </div>
+
+                        <div class="paragrahe">
+                            Les joueurs jouent dans des plateformes de jeux en ligne tels que :
+                            <ul>
+                                <li>Board Game Arena</li>
+                                <li>Table top Simulator (compte Steam requis)</li>
+                                <li>Tabletopia</li>
+                                <li>Codenames</li>
+                                <li>Skribbl</li>
+                                <li>JLKM</li>
+                                <li>Gartic Phone</li>
+                                <li>Wolfy</li>
+                            </ul> 
+                        </div>
+                    </div>
+            </div>
+        
+            <div class="colonnePage seancesRecentes">
+                <div class="titre">Les 5 derniers séances crées</div>
+
+                    <div class="tableau">
+                        <div class="ligne">
+                            <div class="colonne">#</div>
+                            <div class="colonne">Jeu</div>
+                            <div class="colonne">Séance</div>
+                            <div class="colonne">Organisateur</div>
+                            <div class="colonne">Plateforme</div>
+                            <div class="colonne">Actions</div>
+                        </div>
+
+                        {% for seance in seances %}
+                    
+                            <div class="ligne">
+                                <div class="colonne">
+                                    <div class="miniature">
+                                        <img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}">
+                                    </div>
+                                </div>
+                                    <div class="colonne">{{ seance.jeu.nom }}</div>
+                                    <div class="colonne">{{ seance.nom }}</div>
+                                    <div class="colonne">{{ seance.organisateur.pseudo }}</div>
+                                    <div class="colonne">{{ seance.plateforme }}</div>
+                                    <div class="colonne">
+                                        <div class="actions">
+                                            <div class="bouton afficher">
+                                                <a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a>                                    
+                                            </div>
+                                            
+                                            {% if app.user %}
+                                                {% if seance in participation %}
+                                                    <div class="bouton retirer">
+                                                        <a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a>                                                
+                                                    </div>
+
+                                                {% else %}
+                                                    <div class="bouton participer">
+                                                        <a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}                         
+                                        </div>
+                                    </div>                    
+                            </div>
                     {% endfor %}
                     
                 </div>
 
-            <div id="afficheTout">
-                <a href="{{ path('app_seance_index') }}">Afficher toutes les séances</a>            
-            </div>
+                <div id="afficheTout">
+                    <a href="{{ path('app_seance_index') }}">Afficher toutes les séances</a>            
+                </div>
 
+            </div>
+        
         </div>
+
 
 {% endblock %}

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class JoueurType extends AbstractType
@@ -32,27 +33,35 @@ class JoueurType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', RepeatedType::class,[
+            ->add('password', RepeatedType::class,[
                 'type' => PasswordType::class,
+                'label' => false,
+                //Mapped false pour empêcher le persist et flush du mdp
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'saisieMdp',
+                ],
                 'first_options' => [
+                    'label' => 'Nouveau mot de passe',
                     'attr' => [
                         'autocomplete' => 'new-password',
-                        'placeholder' => 'Nouveau mot de passe'
                     ],
                 ],
                 'second_options' => [
+                    'label' => 'Répétez le mot de passe',
                     'attr' => [
                         'autocomplete' => 'new-password',
-                        'placeholder' => 'Répétez le mot de passe'
                     ],
                 ],
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Le mot de passe doit avoir au minimum {{ limit }} caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
                 'invalid_message' => 'Les mots de passe doivent être identiques',
-                'mapped' => false
-            ])
-
-            ->add('submit', SubmitType::class, [
-                'label' => 'Changer',
-                'validate' => false
             ])
         ;
     }

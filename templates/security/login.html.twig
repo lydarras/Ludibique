@@ -3,9 +3,11 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div class="section pageFormulaire">
-        <div class="titre">Connexion</div>
-
+    <div class="lignePage pageFormulaire">
+    
+        <div class="colonnePage">
+            <div class="titre">Connexion</div>
+            
             <form method="post">
 
                 {% if error %}
@@ -24,14 +26,16 @@
 
                 <div class="saisie">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <div>
+                </div>
 
                 <div class="saisie">
                     <button class="btn btn-lg btn-primary" type="submit">Connexion</button>
                 </div>
 
             </form>
-        
+        </div>
+
     </div>
+
 
 {% endblock %}

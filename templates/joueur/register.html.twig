@@ -3,46 +3,51 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="section pageFormulaire">
-        <div class="titre">Inscription</div>
+    <div class="lignePage pageFormulaire">
+    
+        <div class="colonnePage">
+            <div class="titre">Inscription</div>
 
-        <div class="formulaire">
-            {# Désactive les champs required par défaut #}
-            {{ form_start(registrationForm, { attr: {novalidate: 'novalidate'} }) }}
+            <div class="formulaire">
+                {# Désactive les champs required par défaut #}
+                {{ form_start(registrationForm, { attr: {novalidate: 'novalidate'} }) }}
 
 
-                {% if not registrationForm.vars.valid %}
+                    {% if not registrationForm.vars.valid %}
 
-                    <div class="message erreur">
-                        {{ form_errors(registrationForm.email) }}   
-                        {{ form_errors(registrationForm.pseudo) }}   
-                        {{ form_errors(registrationForm.plainPassword) }}               
+                        <div class="message erreur">
+                            {{ form_errors(registrationForm.email) }}   
+                            {{ form_errors(registrationForm.pseudo) }}   
+                            {{ form_errors(registrationForm.plainPassword) }}               
+                        </div>
+
+                    {% endif %}
+
+                    <div class="saisie">
+                        {{ form_label(registrationForm.email) }}
+                        {{ form_widget(registrationForm.email) }}
+                    </div>
+                
+                    <div class="saisie">
+                        {{ form_label(registrationForm.pseudo) }}
+                        {{ form_widget(registrationForm.pseudo) }}
                     </div>
 
-                {% endif %}
+                    <div class="saisie">
+                        {{ form_label(registrationForm.plainPassword) }}
+                        {{ form_widget(registrationForm.plainPassword) }}
+                    </div>
 
-                <div class="saisie">
-                    {{ form_label(registrationForm.email) }}
-                    {{ form_widget(registrationForm.email) }}
-                </div>
-                
-                <div class="saisie">
-                    {{ form_label(registrationForm.pseudo) }}
-                    {{ form_widget(registrationForm.pseudo) }}
-                </div>
+                    <div class="saisie">
+                        <button type="submit" class="btn">S'inscrire</button>
+                    </div>
+                {{ form_end(registrationForm) }}
+            </div>
 
-                <div class="saisie">
-                    {{ form_label(registrationForm.plainPassword) }}
-                    {{ form_widget(registrationForm.plainPassword) }}
-                </div>
-
-                <div class="saisie">
-                    <button type="submit" class="btn">S'inscrire</button>
-                </div>
-            {{ form_end(registrationForm) }}
         </div>
-
+    
     </div>
+
 
 
 {% endblock %}

@@ -25,10 +25,10 @@ class SeanceType extends AbstractType
                 'label' => 'Nom de la séance',
                 //empty data permet de valider une saisie vide et affichera le message d'erreur de
                 // l'utilisateur au lieu le message d'erreur de Symfony
-                'empty_data' => '',
+                //'empty_data' => '',
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Merci de remplir de champ"
+                        'message' => "Merci de remplir le nom de séance'"
                     ]),
                 ],
             ])
@@ -38,8 +38,11 @@ class SeanceType extends AbstractType
                 'label' => 'Choix de jeu'
             ])
             ->add('description',TextareaType::class, [
-                'label' => false,
-                'attr' => ['placeholder' => 'Description du jeu'
+                'label' => 'Description du jeu',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => "Merci de remplir la description"
+                    ]),
                 ],
                 //les contraintes de validation de content est dans l'Article (propriété $content)
             ])

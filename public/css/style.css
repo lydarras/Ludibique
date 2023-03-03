@@ -71,20 +71,21 @@ nav ul li a:hover{
 
 /* Structure du site */
 
-#contenu{
+
+main #contenu{
     display: flex;
     flex-direction: column;
 }
 
-#contenu main .section{
+main #contenu .lignePage .colonnePage{
     margin: 8px;
 }
 
-#contenu main .section .titre{
+main #contenu .lignePage .colonnePage .titre{
     font-size: 32px;
 }
 
-#contenu main{
+main #contenu .lignePage:last-of-type{
     display: flex;
 }
 
@@ -92,40 +93,52 @@ nav ul li a:hover{
 
 @media screen and (max-width: 1105px) {
 
-    #contenu main{
+    main #contenu .lignePage:last-of-type{
         flex-direction: column;
     }
 
 }
 
+/* Message de réussite */
+
+main #contenu .lignePage .succes{
+    padding: 8px;
+    background-color: rgba(172,206,85,0.6);
+    border: 4px solid #ACCE55;
+    color: #8BA83D;
+    width: 25%;
+    border-radius: 8px;
+    margin-left: 8px;
+}
+
 /* Page d'accueil - Bienvenue */
 
-#contenu main .bienvenue{
+main #contenu .bienvenue{
     background: rgba(232,203,146,0.8);
     border-radius: 20px;
     border: 4px solid #E0AD68;
 }
 
-#contenu main .bienvenue .titreBienvenue{
+main #contenu .bienvenue .titreBienvenue{
     background-color: #E0AD68;
     color: #FFFFFF;
     padding: 12px;
     border-radius: 16px 16px 0px 0px;
 }
 
-#contenu main .bienvenue #kesako{
+main #contenu .bienvenue #kesako{
     padding: 12px;
 }
 
-#contenu main .bienvenue{
+main #contenu .bienvenue{
     flex: 1;
 }
 
-#contenu main .seancesRecentes{
+main #contenu .seancesRecentes{
     flex: 2;
 }
 
-#contenu main .seancesRecentes #afficheTout a{
+main #contenu .seancesRecentes #afficheTout a{
     text-decoration: none;
     padding: 8px;
     border-radius: 8px;
@@ -136,121 +149,126 @@ nav ul li a:hover{
     font-weight: bold;
 }
 
-#contenu main .seancesRecentes #afficheTout a:hover{
+main #contenu .seancesRecentes #afficheTout a:hover{
     background-color: #FFFFFF;
 }
 
 /* Tableau commun pour la gestion des séances & participations */
 
-#contenu main .section .tableau{
+main #contenu .lignePage .colonnePage .tableau{
     background-color: #E8CB92;
     border-radius: 20px;
     margin: 8px 0 24px 0;
     border: 4px solid #E0AD68;
 }
 
-#contenu main .section .tableau .ligne{
+main #contenu .lignePage .colonnePage .tableau .ligne{
     display: flex;
     padding: 16px 8px;
 
 }
 
-#contenu main .section .tableau .ligne:first-of-type{
+main #contenu .lignePage .colonnePage .tableau .ligne:first-of-type{
     background-color: #E0AD68;
     color: #FFFFFF;
     border-radius: 16px 16px 0px 0px;
 }
 
-#contenu main .section .tableau .ligne .colonne{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne{
     width: 15%;
 }
 
-#contenu main .section .tableau .ligne .colonne:first-of-type{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne:first-of-type{
     width: 10%;
 }
 
-#contenu main .section .tableau .ligne .colonne:last-of-type{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne:last-of-type{
     width: 31%;
 }
 
-#contenu main .section .tableau .ligne .colonne .miniature img{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .miniature img{
     width: 48px;
     height: 48px;
 }
 
-#contenu main .section .tableau .ligne:not(:first-of-type) .colonne:not(:first-of-type){
+main #contenu .lignePage .colonnePage .tableau .ligne:not(:first-of-type) .colonne:not(:first-of-type){
     padding-top: 10px;
 }
 
-#contenu main .section .tableau .ligne .colonne .actions{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .actions{
     display: flex;
 }
 
-#contenu main .section .tableau .ligne .colonne .actions .bouton{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .actions .bouton{
     margin-right: 8px;
 }
 
-#contenu main .section .tableau .ligne .colonne .actions .bouton a{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .actions .bouton a{
     text-decoration: none;
     padding: 6px;
     border-radius: 8px;
     font-size: 14px;
 }
 
-#contenu main .section .tableau .ligne .colonne .actions .bouton a:hover{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .actions .bouton a:hover{
     background-color: #FFFFFF;
     color: #454545;
     border: 3px solid #454545;
 }
 
-#contenu main .section .tableau .ligne .colonne .actions .afficher a{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .actions .afficher a{
     color: #454545;
     background-color: #E0AD68;
     border: 3px solid #454545;
 }
 
-#contenu main .section .tableau .ligne .colonne .actions .participer a{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .actions .participer a{
     color: #FFFFFF;
     background-color: #ACCE55;
     border: 3px solid #ACCE55;
 }
 
-#contenu main .section .tableau .ligne .colonne .actions .participer a:hover{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .actions .participer a:hover{
     color: #ACCE55;
     border: 3px solid #ACCE55;
 }
 
-#contenu main .section .tableau .ligne .colonne .actions .retirer a{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .actions .retirer a{
     color: #FFFFFF;
     background-color: #D13;
     border: 3px solid #D13;
 }
 
-#contenu main .section .tableau .ligne .colonne .actions .retirer a:hover{
+main #contenu .lignePage .colonnePage .tableau .ligne .colonne .actions .retirer a:hover{
     border: 3px solid #D13;
     color: #D13;
 }
 
 /* Mes séances & participations */
-#contenu main .mes-seances{
+main #contenu .mes-seances{
     flex: 2;
 }
 
-#contenu main .mes-seances .tableau .ligne .colonne{
+main #contenu .mes-seances .tableau .ligne .colonne{
     width: 20%;
 }
 
-#contenu main .mes-participations{
+main #contenu .mes-participations{
     flex: 1;
 }
 
-#contenu main .mes-participations .tableau .ligne .colonne{
+main #contenu .mes-participations .tableau .ligne .colonne{
     width: 30%;
+}
+
+/* Affichage de toutes les séances */
+main #contenu .lignePage .toutes-les-seances{
+    flex: 1;
 }
 
 /* Formulaire */
 
-#contenu main .pageFormulaire{
+main #contenu .pageFormulaire{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -258,35 +276,37 @@ nav ul li a:hover{
     margin-right: 40%;
 }
 
-#contenu main .pageFormulaire .titre{
+main #contenu .pageFormulaire .titre{
     text-align: center;
     margin-bottom: 16px;
 }
 
-#contenu main .pageFormulaire form{
+main #contenu .pageFormulaire form{
     width: 200%;
     display: flex;
     flex-direction: column;
 }
 
-#contenu main .pageFormulaire form .message{
+main #contenu .pageFormulaire form .message{
     padding: 8px;
     border-radius: 8px;
     margin-bottom: 16px;
 }
 
-#contenu main .pageFormulaire form .erreur{
+main #contenu .pageFormulaire form .erreur{
     background-color: rgba(221,17,51,0.3);
     border: 4px solid #D13;
     color: #D13;
 }
 
-#contenu main .pageFormulaire form .saisie{
+main #contenu .pageFormulaire form .saisie{
     display: flex;
     justify-content: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
-#contenu main .pageFormulaire form .saisie label{
+main #contenu .pageFormulaire form .saisie label{
     flex: 1;
     display: flex;
     padding-right: 32px;
@@ -294,37 +314,107 @@ nav ul li a:hover{
     margin-top: 8px;
 }
 
-#contenu main .pageFormulaire form .saisie input{
+main #contenu .pageFormulaire form .saisie input{
     flex: 2;
     padding: 0.5em;
     margin-bottom: 16px;
 }
 
-#contenu main .connexion form .saisie button{
+main #contenu .connexion form .saisie button{
     padding: 0.5em;
+}
+
+/** Formulaire de séance **/
+
+main #contenu .pageFormSeance{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+main #contenu .pageFormSeance .colonnePage form{
+    width: 100%;
+}
+
+main #contenu .pageFormulaire form:last-of-type{
+    width: auto;
+}
+
+main #contenu .pageFormSeance .colonnePage form .formSeance{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+main #contenu .pageFormulaire .colonnePage form .formSeance .saisieSeance:last-of-type .saisie:first-of-type{
+    flex-direction: column;
+}
+
+main #contenu .pageFormulaire .colonnePage form .formSeance .saisieSeance .saisie textarea{
+    resize: none;
+    height: 8em;
+    width: 50em;
+}
+
+main #contenu .pageFormulaire .colonnePage form .formSeance .saisieSeance .actionForm{
+    justify-content: start;
+}
+
+main #contenu .pageFormulaire .colonnePage form .formSeance .saisieSeance .actionForm > *{
+    margin-right: 2em;
+}
+
+main #contenu .pageFormulaire .colonnePage form .formSeance .saisieSeance .actionForm a:hover{
+    color: #FFFFFF;
+}
+
+/* Responsive Formulaire de séance */
+
+@media screen and (max-width: 1105px) {
+
+    main #contenu .pageFormSeance .colonnePage form .formSeance{
+        flex-direction: column;
+    }
+
+    main #contenu .pageFormulaire .colonnePage form .formSeance .saisieSeance .saisie textarea{
+        height: 12em;
+        width: 40em;
+    }
+
+}
+
+@media screen and (max-width: 680px) {
+
+    main #contenu .pageFormSeance{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
 }
 
 /** Mon profil **/
 
-#contenu main .profil .mon-compte{
+main #contenu .profil .infoIndividuel{
     display: flex;
-    max-height: 200px;
+    max-height: 256px;
 }
 
-#contenu main .profil .mon-compte .avatar{
-    width: 256px;
-    height: 256px;
+main #contenu .profil .infoIndividuel .photo{
+    margin-right: 32px;
 }
 
-#contenu main .profil .mon-compte .info #pseudo{
+main #contenu .profil .infoIndividuel .photo img{
+    max-width: 256px;
+    max-height: 256px;
+}
+
+main #contenu .profil .infoIndividuel .info #titreInfo{
     font-size: 32px;
 }
 
-#contenu main .profil .actions .bouton{
+main #contenu .profil .infoIndividuel .info .actions .bouton{
     margin: 24px 0;
 }
 
-#contenu main .profil .actions .bouton a{
+main #contenu .profil .infoIndividuel .info .actions .bouton a{
     text-decoration: none;
     padding: 6px;
     border-radius: 8px;
@@ -332,25 +422,78 @@ nav ul li a:hover{
 
 }
 
-#contenu main .section .actions .bouton a:hover{
+main #contenu .lignePage .colonnePage .infoIndividuel .info .actions .bouton a:hover{
     background-color: #FFFFFF;
 }
 
-#contenu main .section .actions .modifier a{
+main #contenu .lignePage .colonnePage .infoIndividuel .info .actions .modifier a{
     color: #454545;
     background-color: #E0AD68;
     border: 3px solid #454545;
 }
 
-#contenu main .section .actions .retirer a{
+main #contenu .lignePage .colonnePage .infoIndividuel .info .actions .retirer a{
     color: #FFFFFF;
     background-color: #D13;
     border: 3px solid #D13;
 }
 
-#contenu main .section .actions .retirer a:hover{
+main #contenu .lignePage .colonnePage .infoIndividuel .info .actions .retirer a:hover{
     border: 3px solid #D13;
     color: #D13;
+}
+
+/* Info Séance */
+
+main #contenu .lignePage .colonnePage .autreInfoSeance{
+    display: flex;
+    margin-top: 32px;
+}
+
+main #contenu .lignePage .colonnePage .autreInfoSeance .descriptionSeance{
+    background-color: rgba(224,173,104,0.4);
+    flex: 2;
+    margin-right: 16px;
+    padding: 8px;
+}
+
+main #contenu .lignePage .colonnePage .autreInfoSeance .lesParticipants{
+    background-color: #E8CB92;
+    border-radius: 20px;
+    margin: 8px 0 24px 0;
+    border: 4px solid #E0AD68;
+    flex: 1;
+}
+
+main #contenu .lignePage .colonnePage .autreInfoSeance .lesParticipants #titreParticipant{
+    background-color: #E0AD68;
+    color: #FFFFFF;
+    border-radius: 16px 16px 0px 0px;
+    padding: 8px;
+    font-size: 24px;
+}
+
+main #contenu .lignePage .colonnePage .autreInfoSeance .lesParticipants .participant{
+    padding: 8px;
+}
+
+main #contenu .lignePage .colonnePage .autreInfoSeance .lesParticipants .participant img{
+    width: 32px;
+    height: 32px;
+}
+
+@media screen and (max-width: 1105px) {
+
+    main #contenu .lignePage .colonnePage .autreInfoSeance{
+        flex-direction: column;
+    }
+
+}
+
+/* Edition Profil */
+
+main #contenu .pageFormulaire .colonnePage form .saisie .saisieMdp div{
+    display: flex;
 }
 
 /* Partie footer */

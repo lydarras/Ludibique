@@ -58,5 +58,12 @@ class DefaultController extends AbstractController
         
 
     }
+ 
+    /**
+    * @Route("/mentions-legales", name="mentions_legales", methods={"GET"})
+    */
+    public function mentionsLegales(): Response{
+        return $this->render('commons/mentions_legales.html.twig');
+    }
 
 };

@@ -39,11 +39,10 @@ class JoueurController extends AbstractController
                 )
             );
 
-
+            $this->addFlash('success',"Inscription réussi. Vous pouvez à présent vous connecter !");
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             return $this->redirectToRoute('accueil');
         }
@@ -58,7 +57,6 @@ class JoueurController extends AbstractController
      */
     public function afficheJoueur(Joueur $joueur): Response
     {
-
         return $this->render("joueur/affiche_profile.html.twig",[
             'joueur' => $joueur,
         ]);
@@ -95,21 +93,29 @@ class JoueurController extends AbstractController
                 $joueur->setAvatar($avatarOriginal);
             }
 
-            $mdp = $form->get('plainPassword')->getData();
-
-            if($mdp){
-                $joueur->setPassword($passwordHasher->hashPassword(
-                    $joueur, $form->get('plainPassword')->getData()
-                    )
-                );
-            }
-
             $entityManager->persist($joueur);
             $entityManager->flush();
 
-            return $this->redirectToRoute('affiche_joueur', array(
-                'id' => $joueur->getId()
-            ));
+            //$mdp aura comme valeur le nouveau mot de passe saisie au formulaire
+            $mdp = $form->get('password')->getData();
+        
+            //Si les deux champs (nouveaux mot de passe et confirmer) sont saisies sans erreur
+            //le mdp sera mis à jour. D'abord, on demande à Doctrine de sauvegarder le joueur (persist)
+            //et ensuite exécuter la requête via flush
+            if(!(empty($mdp))){
+                $joueur->setPassword($passwordHasher->hashPassword(
+                    $joueur, $mdp
+                    )
+                );
+                $entityManager->persist($joueur);
+                $entityManager->flush();
+            }
+
+            $this->addFlash('success',"Profil mis à jour !");
+            return $this->render("joueur/affiche_profile.html.twig",[
+                'joueur' => $joueur,
+            ]);
+
         }
 
         return $this->render('joueur/modifie_joueur.html.twig', [

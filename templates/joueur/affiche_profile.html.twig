@@ -4,26 +4,42 @@
 
 {% block body %}
 
-    <div class="section profil">
-
-        <div class="mon-compte">
-            <div class="avatar"><img src="{{ asset('images/avatars/' ~ joueur.avatar) }}" alt="{{ joueur.pseudo }}"></div>
-            <div class="info">
-                <div id="pseudo">{{ joueur.pseudo }}</div>
-                <div id="email">Email : {{ joueur.email }}</div>
+    {% for label, messages in app.flashes %}
+        {% if label == 'success' %}
+            <div class="lignePage">
+                <div class="succes">{{ messages.0 }}</div>
             </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="lignePage">
+
+        <div class="colonnePage profil">
+
+            <div class="infoIndividuel">
+                <div class="photo"><img src="{{ asset('images/avatars/' ~ joueur.avatar) }}" alt="{{ joueur.pseudo }}"></div>
+                <div class="info">
+                    <div id="titreInfo">{{ joueur.pseudo }}</div>
+                    <div class="elemInfo">Email : {{ joueur.email }}</div>
+                    
+                    <div class="actions">
+                        <div class="bouton modifier">
+                            <a href="{{ path('modifier_joueur', {'id': joueur.id}) }}">Modifier mon profil</a>
+                        </div>
+            
+                        <div class="bouton retirer">
+                            <a href="{{ path('supprimer_joueur', {'id': joueur.id}) }}">Supprimer mon compte</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="actions">
-            <div class="bouton modifier">
-                <a href="{{ path('modifier_joueur', {'id': joueur.id}) }}">Modifier mon profil</a>
-            </div>
-            <div class="bouton retirer">
-                <a href="{{ path('supprimer_joueur', {'id': joueur.id}) }}">Supprimer mon compte</a>
-            </div>
-
-        </div>
 
     </div>
+
+
 
 {% endblock %}

@@ -4,8 +4,45 @@
 
 {% block body %}
 
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <div class="lignePage pageFormulaire">
+    
+        <div class="colonnePage">
+            <div class="titre">Modification de profil</div>
+
+                {# Désactive les champs required par défaut #}
+                {{ form_start(form, { attr: {novalidate: 'novalidate'} }) }}
+
+
+                    {% if not form.vars.valid %}
+
+                        <div class="message erreur">
+                            {{ form_errors(form.password.first) }}              
+                        </div>
+
+                    {% endif %}
+
+                    <div class="saisie">
+                        {{ form_label(form.avatar) }}
+                        {{ form_widget(form.avatar) }}
+                    </div>
+
+                    <div class="saisie">
+                        {{ form_label(form.password.first) }}
+                        {{ form_widget(form.password.first) }}
+                    </div>
+
+                   <div class="saisie">
+                        {{ form_label(form.password.second) }}
+                        {{ form_widget(form.password.second) }}
+                    </div>
+
+                    <div class="saisie">
+                        <button type="submit" class="btn">Changer</button>
+                    </div>
+                {{ form_end(form) }}
+
+        </div>
+    
+    </div>
 
 {% endblock %}

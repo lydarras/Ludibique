@@ -34,7 +34,7 @@
                                 <div class="colonne">
                                     <div>{{ seance.nom }}</div>
                                     <div>{{ seance.organisateur.pseudo }}</div>
-                                    <div>{{ seance.joueurs|length }} participants</div>
+                                    <div>{{ seance.joueurs|length }}/{{ seance.jeu.nbJoueurMax }} participants</div>
                                 </div>
 
                                 <div class="colonne">
@@ -57,9 +57,15 @@
                                                 <a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a>                                                
                                             </div>
                                         {% else %}
-                                            <div class="bouton participer">
-                                                <a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a>
-                                            </div>
+
+                                            {% if seance.joueurs|length < seance.jeu.nbJoueurMax %}
+                                                <div class="bouton participer">
+                                                    <a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a>
+                                                </div>
+                                            {% else %}
+                                                <div>Complet</div>
+                                            {% endif %}
+
                                         {% endif %}                                   
                                     </div>
 

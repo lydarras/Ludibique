@@ -21,16 +21,18 @@
                 <div class="info">
                     <div id="titreInfo">{{ joueur.pseudo }}</div>
                     <div class="elemInfo">Email : {{ joueur.email }}</div>
-                    
-                    <div class="actions">
-                        <div class="bouton modifier">
-                            <a href="{{ path('modifier_joueur', {'id': joueur.id}) }}">Modifier mon profil</a>
-                        </div>
+                    {% if app.user %}
+                        <div class="actions">
+                            <div class="bouton modifier">
+                                <a href="{{ path('modifier_joueur', {'id': joueur.id}) }}">Modifier mon profil</a>
+                            </div>
             
-                        <div class="bouton retirer">
-                            <a href="{{ path('supprimer_joueur', {'id': joueur.id}) }}">Supprimer mon compte</a>
+                            <div class="bouton retirer">
+                                <a href="{{ path('supprimer_joueur', {'id': joueur.id}) }}">Supprimer mon compte</a>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
+
                 </div>
 
             </div>

@@ -19,11 +19,12 @@ class DefaultController extends AbstractController
     public function index(EntityManagerInterface $entityManager): Response
     {
         $utilisateur = $this->getUser();
+        
         //Le premier array vide signifie qu'il n'y a pas une colonne particulier à trouver
         //Cependant, on triera les séances par id (soit des séances crées récemment).
         //Le chiffre 5 est une limite pour récupérer seulement les 5 séances en ordre décroissant 
         $seances = $entityManager->getRepository(Seance::class)->findBy([],['id'=>'DESC'],5);
-
+        
         if($utilisateur){
 
             $joueur = $entityManager->getRepository(Joueur::class)->find($utilisateur->getId());
@@ -46,25 +47,31 @@ class DefaultController extends AbstractController
     public function mesSeancesParticipation(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         $utilisateur = $this->getUser();
-        //Le premier array vide signifie qu'il n'y a pas une colonne particulier à trouver
-        //Cependant, on triera les séances par id (soit des séances crées récemment).
-        //Le chiffre 5 est une limite pour récupérer seulement les 5 séances en ordre décroissant 
-        $seancesPerso = $entityManager->getRepository(Seance::class)->findBy(['organisateur' => $utilisateur->getId()]);
-        $pageSeances = $paginator->paginate(
-            $seancesPerso,
-            $request->query->getInt('page', 1),5
-        );
-        $joueur = $entityManager->getRepository(Joueur::class)->find($utilisateur->getId());
-        $participation = $joueur->getParticipation();
-        $pageParticipations = $paginator->paginate(
-            $participation,
-            $request->query->getInt('page', 1),5
-        );
 
-        return $this->render('seance_part_perso.html.twig', [
-            'seances' => $pageSeances,
-            'participations' => $pageParticipations,
-        ]);
+        if($utilisateur){
+            //Le premier array vide signifie qu'il n'y a pas une colonne particulier à trouver
+            //Cependant, on triera les séances par id (soit des séances crées récemment).
+            //Le chiffre 5 est une limite pour récupérer seulement les 5 séances en ordre décroissant 
+            $seancesPerso = $entityManager->getRepository(Seance::class)->findBy(['organisateur' => $utilisateur->getId()]);
+            $pageSeances = $paginator->paginate(
+                $seancesPerso,
+                $request->query->getInt('page', 1),5
+            );
+            $joueur = $entityManager->getRepository(Joueur::class)->find($utilisateur->getId());
+            $participation = $joueur->getParticipation();
+            $pageParticipations = $paginator->paginate(
+                $participation,
+                $request->query->getInt('page', 1),5
+            );
+
+            return $this->render('seance_part_perso.html.twig', [
+                'seances' => $pageSeances,
+                'participations' => $pageParticipations,
+            ]);
+        }
+        else{
+            return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
+        }
         
 
     }

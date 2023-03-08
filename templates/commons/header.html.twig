@@ -6,18 +6,18 @@
 
     <ul>
 
-            <li><a href="{{ path('app_seance_index') }}">Afficher toutes les séances</a></li>
+            <li><a href="{{ path('toutes_les_seances') }}">Afficher toutes les séances</a></li>
         {% if not app.user %}
         
             <li><a href="{{ path('creer_joueur') }}">S'inscrire</a></li>
-            <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+            <li><a href="{{ path('connexion') }}">Se connecter</a></li>
         
         {% else %}
 
             <li><a href="{{ path('seance_participation_perso') }}">Mes participations & séances</a></li>
-            <li><a href="{{ path('app_seance_new') }}">Organiser une séance</a></li>
+            <li><a href="{{ path('creation_seance') }}">Organiser une séance</a></li>
             <li><a href="{{ path('affiche_joueur', {'id': app.user.id}) }}">Mon profil</a></li>
-            <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+            <li><a href="{{ path('deconnexion') }}">Se déconnecter</a></li>
         
         {% endif %}
     </ul>

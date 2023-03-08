@@ -53,14 +53,17 @@
                             <div class="colonne">Actions</div>
                         </div>
 
-                        {% for seance in seances %}
+                        {% if seances is not empty %}
+
+                            {% for seance in seances %}
                     
-                            <div class="ligne">
-                                <div class="colonne">
-                                    <div class="miniature">
-                                        <img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}">
+                                <div class="ligne">
+                                    <div class="colonne">
+                                        <div class="miniature">
+                                            <img src="{{ asset('images/jeux/' ~ seance.jeu.image) }}" alt="{{ seance.jeu.nom }}">
+                                        </div>
                                     </div>
-                                </div>
+                                    
                                     <div class="colonne">{{ seance.jeu.nom }}</div>
                                     <div class="colonne">{{ seance.nom }}</div>
                                     <div class="colonne">{{ seance.organisateur.pseudo }}</div>
@@ -68,7 +71,7 @@
                                     <div class="colonne">
                                         <div class="actions">
                                             <div class="bouton afficher">
-                                                <a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a>                                    
+                                                <a href="{{ path('affiche_seance', {'id': seance.id}) }}">Afficher les détails</a>                                    
                                             </div>
                                             
                                             {% if app.user %}
@@ -85,13 +88,21 @@
                                             {% endif %}                         
                                         </div>
                                     </div>                    
+                                </div>
+                            {% endfor %}
+
+                        {% else %}
+                        
+                            <div class="ligne">
+                                Aucune séance
                             </div>
-                    {% endfor %}
+
+                        {% endif %}
                     
                 </div>
 
                 <div id="afficheTout">
-                    <a href="{{ path('app_seance_index') }}">Afficher toutes les séances</a>            
+                    <a href="{{ path('toutes_les_seances') }}">Afficher toutes les séances</a>            
                 </div>
 
             </div>

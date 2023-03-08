@@ -63,13 +63,13 @@
                                 <div class="colonne">
                                     <div class="actions">
                                         <div class="bouton afficher">
-                                            <a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a>
+                                            <a href="{{ path('affiche_seance', {'id': seance.id}) }}">Afficher les détails</a>
                                         </div>
                                         <div class="bouton afficher">
-                                            <div><a href="{{ path('app_seance_edit', {'id': seance.id}) }}">Modifier</a></div>                                        
+                                            <div><a href="{{ path('modifie_seance', {'id': seance.id}) }}">Modifier</a></div>                                        
                                         </div>
                                         <div class="bouton retirer">
-                                            <a href="{{ path('app_seance_delete', {'id': seance.id}) }}">Annuler</a>
+                                            <a href="{{ path('supprime_seance', {'id': seance.id}) }}">Annuler</a>
                                         </div>                                   
                                     </div>
                                 </div>

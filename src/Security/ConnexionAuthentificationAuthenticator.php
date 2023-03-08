@@ -19,7 +19,7 @@ class ConnexionAuthentificationAuthenticator extends AbstractLoginFormAuthentica
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'connexion';
 
     private UrlGeneratorInterface $urlGenerator;
 

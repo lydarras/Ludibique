@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Seance index{% endblock %}
+{% block title %}Les séances{% endblock %}
 
 {% block body %}
 
@@ -50,23 +50,27 @@
                                 <div class="colonne">
                                     <div class="actions">
                                             <div class="bouton afficher">
-                                                <a href="{{ path('app_seance_show', {'id': seance.id}) }}">Afficher les détails</a>
+                                                <a href="{{ path('affiche_seance', {'id': seance.id}) }}">Afficher les détails</a>
                                             </div>
-                                        {% if app.user in seance.joueurs %}
-                                            <div class="bouton retirer">
-                                                <a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a>                                                
-                                            </div>
-                                        {% else %}
-
-                                            {% if seance.joueurs|length < seance.jeu.nbJoueurMax %}
-                                                <div class="bouton participer">
-                                                    <a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a>
+                                        {# si l'utilisateur est connecté #}
+                                        {% if app.user %}
+                                            {% if app.user in seance.joueurs %}
+                                                <div class="bouton retirer">
+                                                    <a href="{{ path('supprimerJoueur', {'id': seance.id}) }}">Se retirer</a>                                                
                                                 </div>
                                             {% else %}
-                                                <div>Complet</div>
-                                            {% endif %}
 
-                                        {% endif %}                                   
+                                                {% if seance.joueurs|length < seance.jeu.nbJoueurMax %}
+                                                    <div class="bouton participer">
+                                                        <a href="{{ path('ajouterJoueur', {'id': seance.id}) }}">Participer</a>
+                                                    </div>
+                                                {% else %}
+                                                    <div>Complet</div>
+                                                {% endif %}
+
+                                            {% endif %}  
+                                        {% endif %}
+                                 
                                     </div>
 
                                 </div>

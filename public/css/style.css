@@ -537,6 +537,70 @@ footer ul li a:hover{
     color:#FFFFFF;
 }
 
+/* Page Contact */
+
+main #contenu .pageContact{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+main #contenu .pageContact .titre{
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+main #contenu .pageContact form{
+    width: 200%;
+    display: flex;
+    flex-direction: column;
+}
+
+main #contenu .pageContact form .message{
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+main #contenu .pageContact form .erreur{
+    background-color: rgba(221,17,51,0.3);
+    border: 4px solid #D13;
+    color: #D13;
+}
+
+main #contenu .pageContact form .saisie{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+main #contenu .pageContact .saisie label{
+    flex: 1;
+    display: flex;
+    padding-right: 32px;
+    width: 160px;
+    margin-top: 8px;
+}
+
+main #contenu .pageContact .saisie input{
+    flex: 2;
+    padding: 0.5em;
+    margin-bottom: 16px;
+}
+
+main #contenu .pageContact .saisie textarea{
+    resize: none;
+}
+
+main #contenu .pageContact .saisie button{
+    width: 5em;
+    height: 2em;
+}
+
 /* Responsive structure du site */
 
 @media screen and (max-width: 1105px) {

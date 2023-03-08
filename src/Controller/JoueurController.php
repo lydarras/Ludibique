@@ -20,7 +20,7 @@ class JoueurController extends AbstractController
     /**
      * @Route("/inscription", name="creer_joueur")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function inscrire(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new Joueur();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -67,72 +67,86 @@ class JoueurController extends AbstractController
      */
     public function editerJoueur(Joueur $joueur,EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, Request $request,SluggerInterface $slugger): Response
     {
-        $avatarOriginal = $joueur->getAvatar();
-        $form = $this->createForm(JoueurType::class, $joueur,[
-            'avatar' => $avatarOriginal
-        ])->handleRequest($request);
+        $user = $this->getUser();
 
-        if($form->isSubmitted() && $form->isValid()) {
-
-            $file = $form->get('avatar')->getData();
-
-            if($file){
-                $extension = ".".$file->guessExtension();
-                $safeFilename = $slugger->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
-                $newFilename = $safeFilename . '_' . uniqid() . $extension;
-
-                try {
-
-                    $file->move($this->getParameter('avatars'), $newFilename);
-                    $joueur->setAvatar($newFilename);
-
-                } catch (FileException $exception) {
+        if($user){
+            $avatarOriginal = $joueur->getAvatar();
+            $form = $this->createForm(JoueurType::class, $joueur,[
+                'avatar' => $avatarOriginal
+            ])->handleRequest($request);
+    
+            if($form->isSubmitted() && $form->isValid()) {
+    
+                $file = $form->get('avatar')->getData();
+    
+                if($file){
+                    $extension = ".".$file->guessExtension();
+                    $safeFilename = $slugger->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+                    $newFilename = $safeFilename . '_' . uniqid() . $extension;
+    
+                    try {
+    
+                        $file->move($this->getParameter('avatars'), $newFilename);
+                        $joueur->setAvatar($newFilename);
+    
+                    } catch (FileException $exception) {
+                    }
+    
+                } else {
+                    $joueur->setAvatar($avatarOriginal);
                 }
-
-            } else {
-                $joueur->setAvatar($avatarOriginal);
-            }
-
-            $entityManager->persist($joueur);
-            $entityManager->flush();
-
-            //$mdp aura comme valeur le nouveau mot de passe saisie au formulaire
-            $mdp = $form->get('password')->getData();
-        
-            //Si les deux champs (nouveaux mot de passe et confirmer) sont saisies sans erreur
-            //le mdp sera mis à jour. D'abord, on demande à Doctrine de sauvegarder le joueur (persist)
-            //et ensuite exécuter la requête via flush
-            if(!(empty($mdp))){
-                $joueur->setPassword($passwordHasher->hashPassword(
-                    $joueur, $mdp
-                    )
-                );
+    
                 $entityManager->persist($joueur);
                 $entityManager->flush();
+    
+                //$mdp aura comme valeur le nouveau mot de passe saisie au formulaire
+                $mdp = $form->get('password')->getData();
+            
+                //Si les deux champs (nouveaux mot de passe et confirmer) sont saisies sans erreur
+                //le mdp sera mis à jour. D'abord, on demande à Doctrine de sauvegarder le joueur (persist)
+                //et ensuite exécuter la requête via flush
+                if(!(empty($mdp))){
+                    $joueur->setPassword($passwordHasher->hashPassword(
+                        $joueur, $mdp
+                        )
+                    );
+                    $entityManager->persist($joueur);
+                    $entityManager->flush();
+                }
+    
+                $this->addFlash('success',"Profil mis à jour !");
+                return $this->render("joueur/affiche_profile.html.twig",[
+                    'joueur' => $joueur,
+                ]);
+    
             }
-
-            $this->addFlash('success',"Profil mis à jour !");
-            return $this->render("joueur/affiche_profile.html.twig",[
-                'joueur' => $joueur,
+    
+            return $this->render('joueur/modifie_joueur.html.twig', [
+                'form' => $form->createView(),
+                'joueur' => $joueur
             ]);
-
         }
-
-        return $this->render('joueur/modifie_joueur.html.twig', [
-            'form' => $form->createView(),
-            'joueur' => $joueur
-        ]);
+        else{
+            return $this->redirectToRoute('accueil', [], Response::HTTP_SEE_OTHER);
+        }
     }
 
     /**
      * @Route("/supprimer_joueur/{id}", name="supprimer_joueur", methods={"GET"})
      */
-    public function supprimerJeu(Joueur $joueur, EntityManagerInterface $entityManager): Response
+    public function supprimerJoueur(Joueur $joueur, EntityManagerInterface $entityManager): Response
     {
-        $this->entityManager->remove($joueur);
-        $this->entityManager->flush();
+        $user = $this->getUser();
 
-        return $this->redirectToRoute('accueil');
+        if($user){
+            $this->entityManager->remove($joueur);
+            $this->entityManager->flush();
+    
+            return $this->redirectToRoute('accueil');
+        }
+        else{
+            return $this->redirectToRoute('accueil');
+        }
     }
 
 

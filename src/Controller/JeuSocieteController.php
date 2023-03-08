@@ -18,18 +18,12 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class JeuSocieteController extends AbstractController
 {
 
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
     /**
      * @Route("/", name="index_jeu_societe")
      */
     public function index(EntityManagerInterface $entityManager): Response
     {
         $jeuxsociete = $entityManager->getRepository(JeuSociete::class)->findAll();
-        //dd($jeuxsociete);
         return $this->render('admin/entite/jeu_societe/index.html.twig', [
             'jeux_societe' => $jeuxsociete
         ]);

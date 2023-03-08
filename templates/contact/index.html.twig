@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+
+    {% for label, messages in app.flashes %}
+        {% if label == 'success' %}
+            <div class="lignePage">
+                <div class="succes">{{ messages.0 }}</div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="lignePage pageContact">
+    
+        <div class="colonnePage">
+            <div class="titre">Contact</div>
+
+            <div class="formulaire">
+                {# Désactive les champs required par défaut #}
+                {{ form_start(form, { attr: {novalidate: 'novalidate'} }) }}
+
+
+                    {% if not form.vars.valid %}
+
+                        <div class="message erreur">
+                            {{ form_errors(form.email) }}   
+                            {{ form_errors(form.nom) }}                
+                        </div>
+
+                    {% endif %}
+
+                    <div class="saisie">
+                        {{ form_label(form.nom) }}
+                        {{ form_widget(form.nom) }}
+                    </div>
+                
+                    <div class="saisie">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </div>
+
+                    <div class="saisie">
+                        {{ form_label(form.message) }}
+                        {{ form_widget(form.message) }}
+                    </div>
+
+                    <div class="saisie">
+                        <button type="submit" class="btn">Contacter</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+
+        </div>
+    
+    </div>
+
+{% endblock %}

@@ -15,16 +15,18 @@
                     <div class="elemInfo">{{ seance.jeu.nom }}</div>
                     <div class="elemInfo">{{ seance.date ? seance.date|date('Y-m-d') : '' }} à {{ seance.heure ? seance.heure|date('H:i:s') : '' }} sur {{ seance.plateforme }}</div>
                 
-                    <div class="actions">
-                        <div class="bouton modifier">
-                            <a href="{{ path('app_seance_edit', {'id': seance.id}) }}">Modifier la séance</a>
-                        </div>
+                    {% if app.user %}
+                        <div class="actions">
+                            <div class="bouton modifier">
+                                <a href="{{ path('modifie_seance', {'id': seance.id}) }}">Modifier la séance</a>
+                            </div>
             
-                        <div class="bouton retirer">
-                            <a href="{{ path('app_seance_delete', {'id': seance.id}) }}">Supprimer la séance</a>
+                            <div class="bouton retirer">
+                                <a href="{{ path('supprime_seance', {'id': seance.id}) }}">Supprimer la séance</a>
+                            </div>
                         </div>
-                    </div>
-                
+                    {% endif %}
+
                 </div>
 
             </div>
